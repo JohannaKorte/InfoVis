@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href='index.css'>
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+<body>
+<div class="chart"></div>
+<!-- <g></g> -->
+<script>
+  var data = [30, 86, 168, 281, 303, 365];
+
+  d3.select(".chart")
+    .selectAll("div")
+    .data(data)
+      .enter()
+      .append("div")
+      .style("width", function(d) { return d + "px"; })
+      .text(function(d) { return d; });
+</script>
+<!-- <script type="text/javascript" src="index.js"></script> -->
+
+</body>
+
+<style>
+</style>
+
+
+</html>
