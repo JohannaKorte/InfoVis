@@ -105,11 +105,10 @@ function onchange() {
 
 
 // ---- Slider ----
-var svg = d3.select("slider-year")
-              .append('svg')
-                .attr('margin', '{right: 10, left: 10}');
-                .attr('width', 960 - margin.left - margin.right);
-                .attr('height', 100);
+var svg = d3.select("svg"),
+    margin = {right: 10, left: 10},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height");
 
 var x = d3.scaleLinear()
     .domain([0, 180])
