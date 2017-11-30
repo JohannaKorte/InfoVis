@@ -1,7 +1,9 @@
 
 # Created by https://www.gitignore.io/api/macos,windows
 
-## Exclude data file##
+## Exclude ipynb shenanigans##
+.ipynb_checkpoints
+
 
 ### macOS ###
 *.DS_Store
