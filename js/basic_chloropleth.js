@@ -1,10 +1,9 @@
 // NOTE: By declaring a variable without 'var', makes it a global variable
 
-//--- Map
+// |---------------- Map -------------------|
 var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
     .colors(colorbrewer.YlGnBu[9])
-    .column('2016')
     .legend(true)
     .unitId('ISO_code');
 
@@ -89,7 +88,7 @@ function onchange() {
 
 
 
-// ---- Slider ----
+// |-------------------- Slider ------------------------|
 function addSlider(data) {
   svg = d3.select("svg"),
   margin = {right: 15, left: 15},
@@ -137,11 +136,9 @@ function addSlider(data) {
   slider.transition() // Gratuitous intro!
     .duration(750)
     .tween("updateMap", function() {
-      var i = d3.interpolate(0, 25);
+      var i = d3.interpolate(0, 25);            // 25 is a random number
       return function(t) { updateMap(i(t)); };
   });
-
-  console.log('# years: ' + years.length)
 };
 
 function updateMap(h) {
@@ -149,9 +146,8 @@ function updateMap(h) {
   handle.attr("cx", x(h));
   // get year from slider value
   var slider_value = Math.round(h);
-  var slider_year = years[slider_value];
-  console.log(h)
-  console.log(slider_value)
+  slider_year = years[slider_value];
+  console.log(slider_year);
   map.column(slider_year).update();
 
   // (tijdelijk) just cause it's pretty
