@@ -3,16 +3,23 @@
 <head>
   <title>Vaccines Visualization</title>
   <meta charset="utf-8">
+  <!-- import css -->
   <link rel="stylesheet" type="text/css" href='css/basic_chloropleth.css'>
   <link href="d3-geomap/css/d3.geomap.css" rel="stylesheet">
+  <!-- import js -->
   <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
   <script src="d3-geomap/js/d3.geomap.min.js"></script>
+  <!--Above files are based on d3.v3, but files below are
+      dependent on d3.v4, so let's import v4 it here-->
+  <script src="//d3js.org/d3.v4.min.js"></script>
+  <script src="d3-drag/d3-drag.js"></script>
 </head>
 
 <body>
   <h1>Vaccines Visualization</h1>
   <div id='dropdown-vaccine'></div>
   <div id='dropdown-year'></div>
+  <div id='slider-year'></div>
   <div id='map'></div>
   <div id='line-plot'></div>
 
