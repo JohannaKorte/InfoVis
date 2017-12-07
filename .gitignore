@@ -3,6 +3,7 @@
 
 ## Exclude ipynb shenanigans##
 .ipynb_checkpoints
+.idea/
 
 
 ### macOS ###
