@@ -6,6 +6,54 @@ div {
   width: 100%;
 }
 
+#pictogram {
+  width: 50%;
+  height: 80px;
+  float: right;
+}
+
+#dropdown{
+  width: 10%
+  float: left;
+}
+
+/*#sliderDiv  {
+   margin:10px;
+   margin-top:30px;
+   height:15px;
+   width:300px;
+}*/
+
+#picto-svg {
+   overflow:none;
+   padding:10px;
+   float:left;
+   width:400px;
+   height:50px;
+}*/
+
+text    {
+   fill:#bb6d82;
+   text-anchor:left;
+   font-size:12px;
+   font-family:sans-serif,Helvetica,Arial;
+   font-weight:bold;
+}
+
+.iconPlain  {
+   fill:#a7a59b;
+}
+
+.iconSelected  {
+   fill:#bb6d82;
+}
+
+/*rect    {
+   fill:#fff1e0;
+}*/
+
+
+/* css for slider */
 .ticks {
   font: 10px sans-serif;
 }

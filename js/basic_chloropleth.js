@@ -7,6 +7,9 @@ var map = d3.geomap.choropleth()
     .legend(true)
     .unitId('ISO_code');
 
+// TODO: adjust legend, and color ranges
+// see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
+
 
 d3.csv('data/vaccinaties.csv', function(error, data) {
     // set data to global
@@ -90,7 +93,7 @@ function onchange() {
 
 // |-------------------- Slider ------------------------|
 function addSlider(data) {
-  svg = d3.select("svg"),
+  svg = d3.select("#slider-svg"),
   margin = {right: 15, left: 15},
   width = +svg.attr("width") - margin.left - margin.right,
   height = +svg.attr("height");
@@ -147,7 +150,6 @@ function updateMap(h) {
   // get year from slider value
   var slider_value = Math.round(h);
   slider_year = years[slider_value];
-  console.log(slider_year);
   map.column(slider_year).update();
 
   // (tijdelijk) just cause it's pretty

@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href='/css/index.css'>
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <title>Vaccination Coverages</title>
+  <meta charset="utf-8">
+  <!-- import css -->
+  <link rel="stylesheet" type="text/css" href='css/basic_chloropleth.css'>
+  <link href="d3-geomap/css/d3.geomap.css" rel="stylesheet">
+  <link  rel="stylesheet" type="text/css" href="css/barchart.css">
+  <!-- import js -->
+  <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
+  <script src="d3-geomap/js/d3.geomap.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <!--Above files are based on d3.v3, but files below are
+      dependent on d3.v4, so let's import v4 it here-->
+  <script src="//d3js.org/d3.v4.min.js"></script>
+  <script src="d3-drag/d3-drag.js"></script>
 </head>
+
 <body>
-<div class="chart"></div>
-<!-- <g></g> -->
-<script>
-  var data = [30, 86, 168, 281, 303, 365];
+  <h1>Exploring the Trend of World's Vaccination Coverages</h1>
+  <div id='dash'>
+    <div id='dropdown' class='dash'></div>
+    <div id='pictogram' class='dash'></div>
+  </div>
+  <svg id='slider-svg' width="1250" height="50"></svg>
+  <div id='map'></div>
+  <!-- <div id='line-plot'></div> -->
 
-  d3.select(".chart")
-    .selectAll("div")
-    .data(data)
-      .enter()
-      .append("div")
-      .style("width", function(d) { return d + "px"; })
-      .text(function(d) { return d; });
+  <script src='js/basic_chloropleth.js'></script>
+  <script src='js/pictogram.js'></script>
+  <script src='js/barchart.js'></script>
 
-  d3.csv()
-</script>
-<!-- <script type="text/javascript" src="index.js"></script> -->
 
 </body>
-
-<style>
-</style>
-
 
 </html>
