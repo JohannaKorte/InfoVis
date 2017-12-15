@@ -42,7 +42,7 @@
             console.log(diseasenameArray)
 
             // set the dimensions and margins of the graph
-            var margin = {top: 20, right: 20, bottom: 30, left: 40},
+            var margin = {top: 20, right: 20, bottom: 60, left: 70},
                 width = 960 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom;
 
@@ -75,18 +75,26 @@
                 .attr("x", function(d,i) { return i * (width / barwidth);})
                 .attr("y", function(d) { return y(d); });
 
-//            svg.selectAll("text")
-//                .data(dataArray)
-//                .enter().append("text")
-//                .text(function(d) {return d})
-//                .attr("class", "text")
-//                .attr("x", function(d, i) {return (i * (width/barwidth)) + barwidth})
-//                .attr("y", height - 20);
-
             // add the x Axis
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
+
+            // add x Axis label
+            svg.append("text")      // text label for the x axis
+                .attr("x", width/2 )
+                .attr("y", height + 40 )
+                .style("text-anchor", "middle")
+                .text("INSERT METRIC");
+
+            // add y axis label
+            svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr('x', 0-(height / 2))
+                .attr('y', 15-(margin.left) )
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Value");
 
             // add the y Axis
             svg.append("g")
