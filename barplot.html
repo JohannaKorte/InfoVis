@@ -26,18 +26,40 @@
 </head>
 <body>
     <script>
-        d3.csv("data/vaccinaties.csv", function (data) {
-            var dataArray = [];
-            var diseasenameArray = [];
+//        d3.csv("data/vaccinaties.csv", function (data) {
+//            var dataArray = [];
+//            var diseasenameArray = [];
+//
+//            data.forEach(function (d) {
+//                if (d.Cname == 'Algeria') {
+//                    dataArray.push(parseInt(d['2016']))
+//                }
+//                if (d.Cname == 'Algeria'){
+//                    diseasenameArray.push(d.Vaccine)
+//                }
+//            });
 
-            data.forEach(function (d) {
-                if (d.Cname == 'Algeria') {
-                    dataArray.push(parseInt(d['2016']))
-                }
-                if (d.Cname == 'Algeria'){
-                    diseasenameArray.push(d.Vaccine)
-                }
-            });
+          d3.csv("data/diseases-melt.csv", function (data) {
+              var dataArray = [];
+              var diseasenameArray = [];
+
+              data.forEach(function (d) {
+                  if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
+                  {dataArray.push(parseInt(d.Incidence))}
+                  if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
+                  {diseasenameArray.push(parseInt(d.Year))}
+              })
+
+
+//              data.forEach(function (d) {
+//                  if (d.Cname == 'Algeria') {
+//                      dataArray.push(parseInt(d['2016']))
+//                  }
+//                  if (d.Cname == 'Algeria'){
+//                      diseasenameArray.push(d.Vaccine)
+//                  }
+//              });
+
             console.log(dataArray)
             console.log(diseasenameArray)
 
