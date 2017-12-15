@@ -4,8 +4,11 @@
 var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
     .colors(colorbrewer.YlGnBu[9])
+    .width('800')
+    .scale(150)
     .legend(true)
-    .unitId('ISO_code');
+    .unitId('ISO_code')
+    .zoomFactor(3);
 
 // TODO: adjust legend, and color ranges
 // see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
