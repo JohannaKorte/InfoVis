@@ -87,6 +87,18 @@ var cities = color.domain().map(function(name) {
   };
 });
 
+var variables = color.domain().map(function(name) {
+  return {
+    name: name,
+    values: data.map(function(d) {
+      return {
+        date: d.date,
+        temperature: +d[name]
+      };
+    })
+  };
+});
+
 x.domain(d3.extent(data, function(d) {
   return d.date;
 }));
