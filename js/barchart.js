@@ -23,7 +23,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d.frequency + "</span>";
+    return "<strong>Coverage:</strong> <span style='color:red'>" + d.coverage + "</span>";
   })
 
 var svg = d3.select("body").append("svg")
@@ -35,14 +35,41 @@ var svg = d3.select("body").append("svg")
 
 svg.call(tip);
 
-d3.tsv("data/data.tsv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+d3.csv("data/vaccines-melt.csv", type, function(error, data) {
+
+  // x.domain(data.map(function(d) { return d.Vaccine; }));
+  // y.domain([0, d3.max(data, function(d) { return d.value; })]);
+  var selected_vaccine = 'BCG';
+  var selected_year = 2016;
+  var selected_data = [];
+  data.forEach(function(d) {
+    if (d.Vaccine == selected_vaccine && d.variable == selected_year) {
+
+      selected_data.push({'country': d.Cname, 'coverage': d.value});
+    }
+  });
+
+  console.log(selected_data);
+  var sorted = selected_data.sort(function(a,b){return b.coverage - a.coverage});
+  console.log(sorted);
+
+  var top20 = selected_data.slice(0, 20);
+  console.log(top20);
+
+  x.domain(top20.map(function(d) { return d.country; }));
+  y.domain([0, d3.max(top20, function(d) { return d.coverage; })]);
 
   svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+      .call(xAxis)
+      .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em")
+            .attr("transform", function(d) {
+                return "rotate(-45)"
+                });;
 
   svg.append("g")
       .attr("class", "y axis")
@@ -52,22 +79,23 @@ d3.tsv("data/data.tsv", type, function(error, data) {
       .attr("y", 6)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Frequency");
+      .text("Population Percentage");
 
   svg.selectAll(".bar")
-      .data(data)
+      .data(top20)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.letter); })
+      .attr("x", function(d) { return x(d.country); })
       .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.frequency); })
-      .attr("height", function(d) { return height - y(d.frequency); })
+      .attr("y", function(d) { return y(d.coverage); })
+      .attr("height", function(d) { return height - y(d.coverage); })
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
 
 });
 
+
 function type(d) {
-  d.frequency = +d.frequency;
+  d.value= +d.value;
   return d;
 }
