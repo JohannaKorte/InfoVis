@@ -16,10 +16,17 @@
             fill: #21f5ff
         }
 
-        .text {
-            fill: #3937ff;
+        .test {
+            fill: #ffd35f;
             font-family: sans-serif
         }
+
+        /*.text {*/
+            /*fill: #3937ff;*/
+            /*font-family: sans-serif*/
+        /*}*/
+
+
     </style>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -97,6 +104,16 @@
                 .attr("x", function(d,i) { return i * (width / barwidth);})
                 .attr("y", function(d) { return y(d); });
 
+            svg.selectAll("text")
+                .data(dataArray)
+                .enter().append("text")
+                .text(function (d) {return d})
+                .attr('class', 'test')
+                .attr("transform", "rotate(-90)")
+                .attr("class", "text")
+                .attr("x", 0 - height)
+                .attr("y", function(d,i) { return i * (width / barwidth) + (barwidth /2);});
+
             // add the x Axis
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
@@ -107,20 +124,28 @@
                 .attr("x", width/2 )
                 .attr("y", height + 40 )
                 .style("text-anchor", "middle")
-                .text("INSERT METRIC");
+                .text("Year");
 
-            // add y axis label
+              //circle.filter(function(d) { return d == null; }).remove()
+              // add y axis label
             svg.append("text")
                 .attr("transform", "rotate(-90)")
                 .attr('x', 0-(height / 2))
                 .attr('y', 15-(margin.left) )
                 .attr("dy", "1em")
                 .style("text-anchor", "middle")
-                .text("Value");
+                .text("Incidence");
 
             // add the y Axis
             svg.append("g")
                 .call(d3.axisLeft(y));
+
+            // Only show axis tick labels every 5 years
+            var ticks = d3.selectAll(".tick text");
+            ticks.attr("class", function(d,i){
+                if(i%5 != 0) d3.select(this).remove();
+            });
+
 
         });
 
