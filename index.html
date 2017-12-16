@@ -6,10 +6,12 @@
   <!-- import css -->
   <link rel="stylesheet" type="text/css" href='css/basic_chloropleth.css'>
   <link href="d3-geomap/css/d3.geomap.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href='css/hbarV4.css'>
   <!-- <link  rel="stylesheet" type="text/css" href="css/barchart.css"> -->
   <!-- import js -->
   <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
   <script src="d3-geomap/js/d3.geomap.min.js"></script>
+
   <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
   <!--Above files are based on d3.v3, but files below are
       dependent on d3.v4, so let's import v4 it here-->
@@ -20,6 +22,9 @@
 <body>
   <h1>Exploring the Trend of World's Vaccination Coverages</h1>
 
+  <div id='wrapper'>
+    <svg width="350" height="450" style='float:left;'></svg>
+  </div>
   <div id='map'></div>
   <svg id='slider-svg' width="1250" height="50"></svg>
   <div id='dash'>
@@ -29,6 +34,11 @@
   <!-- <div id='line-plot'></div> -->
 
   <script src='js/basic_chloropleth.js'></script>
+  <script src='js/hbarV4.js'></script>
+
+
+
+  <!-- <script src='js/hbarV4.js'></script> -->
   <!-- <script src='js/pictogram.js'></script> -->
   <!-- <script src='js/barchart.js'></script> -->
 

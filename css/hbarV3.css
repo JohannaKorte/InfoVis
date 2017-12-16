@@ -1,0 +1,12 @@
+#xaxis .domain {
+  fill:none;
+  stroke:#000;
+}
+#xaxis text, #yaxis text {
+  font-size: 12px;
+}
+
+object {
+  width: 350px;
+  height: 550px;
+}
