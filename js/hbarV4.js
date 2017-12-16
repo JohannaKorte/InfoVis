@@ -52,5 +52,21 @@ d3.csv("data/mean_coverage_2016.csv", function(error, data) {
             .style("display", "inline-block")
             .html((d.Vaccine) + "<br>" + (d.coverage) + '%');
       })
-  		.on("mouseout", function(d){ tooltip.style("display", "none");});
+  		.on("mouseout", function(d){ tooltip.style("display", "none");})
+      .on('click', function(d) { g.selectAll("rect").style("stroke-width", 0)
+                                                    .style('opacity', 0.5);
+                                console.log(this); console.log(d);
+                                d3.select(this).style("stroke-width", 2)
+                                               .style("stroke", 'black')
+                                               .style('opacity', 1);
+                               })
 });
+
+function highlightBar(bar) {
+  console.log('hightlight')
+  console.log(bar);
+  g.selectAll("rect")
+      .style("stroke-width", 0)
+
+  d3.select(bar).style("stroke-width", 2).style("stroke", 'black')
+};
