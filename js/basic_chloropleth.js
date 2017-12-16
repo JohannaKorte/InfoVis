@@ -156,5 +156,5 @@ function updateMap(h) {
   map.column(slider_year).update();
 
   // (tijdelijk) just cause it's pretty
-  svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+  // svg.style("background-color", d3.hsl(h, 0.8, 0.8));
 }

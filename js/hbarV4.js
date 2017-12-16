@@ -11,18 +11,26 @@ var y = d3.scaleBand().range([height, 0]);
 var g = svg.append("g")
 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("data/data.json", function(error, data) {
+var colors = colorbrewer.YlGnBu[9];
+// var colors = colorbrewer.Spectral[11];
+console.log(colorbrewer);
+
+d3.csv("data/mean_coverage_2016.csv", function(error, data) {
 	if (error) throw error;
 
-	data.sort(function(a, b) { return a.value - b.value; });
+	data.sort(function(a, b) { return a.coverage - b.coverage; });
 
-	x.domain([0, d3.max(data, function(d) { return d.value; })]);
-  y.domain(data.map(function(d) { return d.area; })).padding(0.1);
+	x.domain([0, d3.max(data, function(d) { return d.coverage; })]);
+  y.domain(data.map(function(d) { return d.Vaccine; })).padding(0.1);
+
+  var color_scale = d3.scaleQuantize()
+  				.domain([0, data.length])
+  				.range(colors);
 
   g.append("g")
       .attr("class", "x axis")
      	.attr("transform", "translate(0," + height + ")")
-    	.call(d3.axisBottom(x).ticks(5).tickFormat(function(d) { return parseInt(d / 1000); }).tickSizeInner([-height]));
+    	.call(d3.axisBottom(x).ticks(11).tickSizeInner([-height]));
 
   g.append("g")
       .attr("class", "y axis")
@@ -34,14 +42,15 @@ d3.json("data/data.json", function(error, data) {
       .attr("class", "bar")
       .attr("x", 0)
       .attr("height", y.bandwidth())
-      .attr("y", function(d) { return y(d.area); })
-      .attr("width", function(d) { return x(d.value); })
+      .style('fill',function(d,i){ return color_scale(i); })
+      .attr("y", function(d) { return y(d.Vaccine); })
+      .attr("width", function(d) { return x(d.coverage); })
       .on("mousemove", function(d){
           tooltip
             .style("left", d3.event.pageX - 50 + "px")
             .style("top", d3.event.pageY - 70 + "px")
             .style("display", "inline-block")
-            .html((d.area) + "<br>" + "£" + (d.value));
+            .html((d.Vaccine) + "<br>" + (d.coverage) + '%');
       })
   		.on("mouseout", function(d){ tooltip.style("display", "none");});
 });
