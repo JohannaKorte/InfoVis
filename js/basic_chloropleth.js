@@ -23,22 +23,9 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
     // get years
     var years = getYears();
 
-    // call select func to create dropdown and add labels
-    var select = d3.select('#dropdown')
-      .append('select')
-      	.attr('class','select')
-        .attr('id','vaccine-select')
-        .on('change', onchange);
-
-    //  set selction options
-    var options = select
-      .selectAll('option')
-    	.data(vaccines).enter()
-    	.append('option')
-    	.text(function (d) { return d; });
-
+    // TODO: make this general
     // get selections
-    var selected_vaccine = d3.select('#vaccine-select').property('value')
+    var selected_vaccine = 'BCG'
 
     // get data for selected Vaccine and update selected year
     var data_vaccine = getData(selected_vaccine);
@@ -83,9 +70,13 @@ function getYears() {
   return years;
 };
 
-function onchange() {
+function onchange(selected_vaccine) {
+  console.log('onchange');
   // get selected value
-	var selected_vaccine = d3.select('#vaccine-select').property('value');
+	// var selected_vaccine = d3.select('#vaccine-select').property('value');
+  // var selected = document.getElementById("#hbar-svg").contentWindow.selected_hbar;
+
+  console.log(selected_vaccine)
   // set new map data
   map.data = getData(selected_vaccine);
   // update map

@@ -53,20 +53,22 @@ d3.csv("data/mean_coverage_2016.csv", function(error, data) {
             .html((d.Vaccine) + "<br>" + (d.coverage) + '%');
       })
   		.on("mouseout", function(d){ tooltip.style("display", "none");})
-      .on('click', function(d) { g.selectAll("rect").style("stroke-width", 0)
-                                                    .style('opacity', 0.5);
-                                console.log(this); console.log(d);
-                                d3.select(this).style("stroke-width", 2)
-                                               .style("stroke", 'black')
-                                               .style('opacity', 1);
-                               })
+      .on('click', function(d) {highlightBar(this, d)})
 });
 
-function highlightBar(bar) {
-  console.log('hightlight')
-  console.log(bar);
-  g.selectAll("rect")
-      .style("stroke-width", 0)
+function highlightBar(selected, d) {
+  g.selectAll("rect").style("stroke-width", 0)
+                      .style('opacity', 0.5);
+  console.log(selected);
+  console.log(d);
+  d3.select(selected).style("stroke-width", 2)
+                     .style("stroke", 'black')
+                     .style('opacity', 1);
+  d3.select('#hbar-svg').attr('value', d.Vaccine);
+  selected_hbar = d.Vaccine;
+  console.log(selected_hbar);
 
-  d3.select(bar).style("stroke-width", 2).style("stroke", 'black')
+  // Call function to update map
+  onchange(selected_hbar);
+  // console.log(d3.select('#hbar-svg').property('value'));
 };
