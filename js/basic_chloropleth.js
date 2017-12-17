@@ -123,12 +123,13 @@ function addSlider(data) {
     .data(x.ticks(years.length))
     .enter().append("text")
       .attr("x", x)
+      .attr('class', 'slider-tick')
       .attr("text-anchor", "middle")
       .text(function(d) { return years[d]; });
 
   handle = slider.insert("circle", ".track-overlay")
       .attr("class", "handle")
-      .attr("r", 9);
+      .attr("r", 8);
 
   slider.transition() // Gratuitous intro!
     .duration(750)
@@ -141,11 +142,23 @@ function addSlider(data) {
 function updateMap(h) {
   // adjust slider position
   handle.attr("cx", x(h));
+
   // get year from slider value
-  var slider_value = Math.round(h);
-  slider_year = years[slider_value];
+  slider_year = years[Math.round(h)];
+
+  // update map data
   map.column(slider_year).update();
 
-  // (tijdelijk) just cause it's pretty
-  // svg.style("background-color", d3.hsl(h, 0.8, 0.8));
+  // make tickmark text big and bold when year is selected
+  d3.selectAll('.slider-tick').nodes().forEach(function(t){
+
+    if (parseInt(t.innerHTML) == slider_year) {
+      d3.select(t).style('font-weight', 'bold')
+                  .style('font-size', '120%');
+
+    } else {
+      d3.select(t).style('font-weight', 'normal')
+                  .style('font-size', '100%');
+    }
+  });
 }
