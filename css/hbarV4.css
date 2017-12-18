@@ -1,6 +1,6 @@
-.bar {
+/* .bar {
 	fill: #6F257F;
-}
+} */
 .axis path,
 .axis line {
   fill: none;
@@ -21,3 +21,10 @@
   padding: 14px;
   text-align: center;
 }
+
+body {
+	background-size: 100%;
+}
+/* #hbar-svg {
+	background-color: white;
+} */

@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href='css/basic_chloropleth.css'>
   <link href="d3-geomap/css/d3.geomap.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href='css/hbarV4.css'>
+  <link rel ='stylesheet' type='text/css' href='css/multiline.css'>
+
   <!-- <link  rel="stylesheet" type="text/css" href="css/barchart.css"> -->
   <!-- import js -->
   <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
@@ -19,31 +21,40 @@
   <script src="d3-drag/d3-drag.js"></script>
 </head>
 
-<body>
+<body background="images/under-the-sea-background.jpg">
   <h1>Exploring the Trend of World's Vaccination Coverages</h1>
   <div id='slider-div'>
     <svg id='slider-svg' width="1250" height="50"></svg>
   </div>
   <div id='wrapper'>
-    <svg id='hbar-svg' width="350" height="440" style='float:left;'></svg>
+    <svg id='hbar-svg' width="350" height="420" style='float:left;'></svg>
   </div>
   <!-- <div id='pictogram'></div> -->
   <div id='map'></div>
   <div id='dash'>
-    <div id='dropdown' class='dash'></div>
+    <div id='line-div'></div>
+    <div id='bar-div'></div>
+    <!-- <div id='dropdown' class='dash'></div> -->
     <!-- <div id='pictogram' class='dash'></div> -->
   </div>
   <!-- <div id='line-plot'></div> -->
+  <input type="hidden" name="selected_year" value='' id="selected_year" />
+  <input type="hidden" name="selected_vaccine" value="" id="selected_vaccine" />
+  <input type="hidden" name="selected_country" value="" id="selected_country" />
+
 
   <script src='js/basic_chloropleth.js'></script>
   <script src='js/hbarV4.js'></script>
+  <script src='js/slider.js'></script>
+
+  <!-- <script src="//d3js.org/d3.v3.min.js"></script> -->
+  <!-- <script src='js/multiline.js'></script> -->
 
 
-
-  <!-- <script src='js/hbarV4.js'></script> -->
   <!-- <script src='js/pictogram.js'></script> -->
   <!-- <script src='js/barchart.js'></script> -->
 
+  <!-- <script data-main="js/main" src="js/require.js"></script> -->
 
 </body>
 

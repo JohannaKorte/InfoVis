@@ -1,5 +1,5 @@
 // NOTE: By declaring a variable without 'var', makes it a global variable
-
+// define(['d3v3'], function(d3){
 // |---------------- Map -------------------|
 var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
@@ -12,7 +12,6 @@ var map = d3.geomap.choropleth()
 
 // TODO: adjust legend, and color ranges
 // see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
-
 
 d3.csv('data/vaccinaties.csv', function(error, data) {
     // set data to global
@@ -36,7 +35,11 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
         .call(map.draw, map);
 
     // add Slider
-    addSlider(data);
+    addSlider();
+
+    var units = d3.selectAll('.unit')
+    // console.log(d3.select('#map'));
+    units.on('click', function(d){ console.log(d); console.log(this) });
 });
 
 function getData(selected) {
@@ -86,79 +89,5 @@ function onchange(selected_vaccine) {
 
 
 // |-------------------- Slider ------------------------|
-function addSlider(data) {
-  svg = d3.select("#slider-svg"),
-  margin = {right: 15, left: 15},
-  width = +svg.attr("width") - margin.left - margin.right,
-  height = +svg.attr("height");
 
-  years = getYears();
-
-  x = d3.scaleLinear()
-      .domain([0, years.length - 1])
-      .range([0, width])
-      .clamp(true);
-
-  var slider = svg.append("g")
-      .attr("class", "slider")
-      .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
-
-  slider.append("line")
-      .attr("class", "track")
-      .attr("x1", x.range()[0])
-      .attr("x2", x.range()[1])
-    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-      .attr("class", "track-inset")
-    .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-      .attr("class", "track-overlay")
-      .call(d3.drag()
-          .on("start.interrupt", function() { slider.interrupt(); })
-          .on("start drag", function() { updateMap(x.invert(d3.event.x)); })
-        );
-
-  slider.insert("g", ".track-overlay")
-      .attr("class", "ticks")
-      .attr("transform", "translate(0," + 20 + ")")
-    .selectAll("text")
-    .data(x.ticks(years.length))
-    .enter().append("text")
-      .attr("x", x)
-      .attr('class', 'slider-tick')
-      .attr("text-anchor", "middle")
-      .text(function(d) { return years[d]; });
-
-  handle = slider.insert("circle", ".track-overlay")
-      .attr("class", "handle")
-      .attr("r", 8);
-
-  slider.transition() // Gratuitous intro!
-    .duration(750)
-    .tween("updateMap", function() {
-      var i = d3.interpolate(0, 25);            // 25 is a random number
-      return function(t) { updateMap(i(t)); };
-  });
-};
-
-function updateMap(h) {
-  // adjust slider position
-  handle.attr("cx", x(h));
-
-  // get year from slider value
-  slider_year = years[Math.round(h)];
-
-  // update map data
-  map.column(slider_year).update();
-
-  // make tickmark text big and bold when year is selected
-  d3.selectAll('.slider-tick').nodes().forEach(function(t){
-
-    if (parseInt(t.innerHTML) == slider_year) {
-      d3.select(t).style('font-weight', 'bold')
-                  .style('font-size', '120%');
-
-    } else {
-      d3.select(t).style('font-weight', 'normal')
-                  .style('font-size', '100%');
-    }
-  });
-}
+// });
