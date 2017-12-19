@@ -126,7 +126,6 @@ function highlightBar(selected, d) {
 
   // Call function to update map
   onchange(selected_hbar);
-  // console.log(d3.select('#hbar-svg').property('value'));
 };
 
 var getCoverageData = function(selected_year, selected_country) {

@@ -8,7 +8,8 @@ var map = d3.geomap.choropleth()
     .scale(150)
     .legend(true)
     .unitId('ISO_code')
-    .zoomFactor(3);
+    .zoomFactor(3)
+    .postUpdate(selection);
 
 // TODO: adjust legend, and color ranges
 // see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
@@ -36,10 +37,10 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
 
     // add Slider
     addSlider();
-
-    var units = d3.selectAll('.unit')
-    // console.log(d3.select('#map'));
-    units.on('click', function(d){ console.log(d); console.log(this) });
+    //
+    // var units = d3.selectAll('.unit')
+    // // console.log(d3.select('#map'));
+    // units.on('click', function(d){ console.log(d); console.log(this) });
 });
 
 function getData(selected) {
@@ -85,6 +86,32 @@ function onchange(selected_vaccine) {
   // update map
   map.update()
 };
+
+function selection() {
+  console.log('selection');
+  var units = d3.select('#map').selectAll('.unit')
+
+  units
+    .on("click", function(d){
+      console.log(d);
+      console.log(this);
+      units
+          .style("stroke-width", 0.4)
+          .style('opacity', 0.5)
+      d3.select(this)
+          .style("stroke-width", 0.5)
+          .style('opacity', 1);
+    });
+
+  d3.select('rect.background')
+    .on('click', function(d) {
+      units
+        .style("stroke-width", 0.5)
+        .style('opacity', 1);
+      // console.log(d);
+      // console.log(this);
+    })
+}
 
 
 

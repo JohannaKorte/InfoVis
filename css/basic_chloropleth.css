@@ -89,6 +89,11 @@ text    {
    fill:#bb6d82;
 }
 
+path.unit:hover{
+    stroke: white;
+    stroke-width: 0.5px;
+}
+
 /*rect    {
    fill:#fff1e0;
 }*/
