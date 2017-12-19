@@ -25,6 +25,12 @@
 body {
 	background-size: 100%;
 }
+
+#selected-hbar {
+  stroke-width: 2;
+  stroke: black;
+  opacity: 1;
+}
 /* #hbar-svg {
 	background-color: white;
 } */

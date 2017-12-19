@@ -2,8 +2,13 @@ h1 {
   text-align: center;
 }
 
-div {
-  width: 100%;
+#vaccine-display {
+  width: 10%;
+  height: 100px;
+  position: absolute;
+  right: 0;
+  color: white;
+  font-size: 30px;
 }
 
 #dash {
@@ -91,7 +96,7 @@ text    {
 
 path.unit:hover{
     stroke: white;
-    stroke-width: 0.5px;
+    stroke-width: 1;
 }
 
 /*rect    {
@@ -111,9 +116,9 @@ path.unit:hover{
 }
 
 .track {
-  stroke: #000;
+  stroke: white;
   stroke-opacity: 0.3;
-  stroke-width: 10px;
+  stroke-width: 8px;
 }
 
 .track-inset {

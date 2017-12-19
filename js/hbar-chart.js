@@ -32,7 +32,7 @@ d3.csv("data/test-mean.csv", function(error, data) {
 // country_coverage
 function update(data) {
   data.sort(function(a, b) { return a.Coverage - b.Coverage; });
-
+  // console.log(data);
 	x.domain([0, 100]);
   y.domain(data.map(function(d) { return d.Vaccine; })).padding(0.1);
 
@@ -56,12 +56,19 @@ function update(data) {
 	//now actually give each rectangle the corresponding data
 	bars.enter().append("rect")
     .attr("class", "bar")
+    .attr('id', function(d) {
+      if (d.Vaccine == selected_vaccine) {
+        console.log(this);
+        console.log(d);
+        highlightBars(this)
+        return d.Vaccine}
+    })
     .attr("x", 0)
     .attr("height", y.bandwidth())
     .style('fill',function(d,i){ return color_scale(i); })
     .attr("y", function(d) { return y(d.Vaccine); })
     .attr("width", function(d) { return x(d.Coverage); })
-    .on("mousemove", function(d){
+    .on("mouseover", function(d){
         tooltip
           .style("left", d3.event.pageX - 50 + "px")
           .style("top", d3.event.pageY - 70 + "px")
@@ -69,7 +76,14 @@ function update(data) {
           .html((d.Vaccine) + "<br>" + (d.Coverage) + '%');
     })
     .on("mouseout", function(d){ tooltip.style("display", "none");})
-    .on('click', function(d) {highlightBar(this, d)});
+    .on('click', function(d) { handleVaccineSelection(this, d); })
+    .on('load', function(d){
+      console.log('onload')
+      console.log(d);
+
+    })
+    // .call(function(d){ if (d.Vaccine == selected_vaccine) {return highlightBars(this)}});
+
 
 }
 
@@ -102,7 +116,7 @@ function draw(data) {
       .style('fill',function(d,i){ return color_scale(i); })
       .attr("y", function(d) { return y(d.Vaccine); })
       .attr("width", function(d) { return x(d.Coverage); })
-      .on("mousemove", function(d){
+      .on("mouseover", function(d){
           tooltip
             .style("left", d3.event.pageX - 50 + "px")
             .style("top", d3.event.pageY - 70 + "px")
@@ -110,28 +124,46 @@ function draw(data) {
             .html((d.Vaccine) + "<br>" + (d.Coverage) + '%');
       })
   		.on("mouseout", function(d){ tooltip.style("display", "none");})
-      .on('click', function(d) {highlightBar(this, d)});
+      .on('click', function(d) {handleVaccineSelection(this, d)});
 
 };
 
-function highlightBar(selected, d) {
+function highlightBars(selected) {
+  console.log(selected);
+  // make all bars transparent
   g.selectAll("rect").style("stroke-width", 0)
                       .style('opacity', 0.5);
-
+  // except for the bar clicked on
   d3.select(selected).style("stroke-width", 2)
                      .style("stroke", 'black')
                      .style('opacity', 1);
-  d3.select('#hbar-svg').attr('value', d.Vaccine);
-  selected_hbar = d.Vaccine;
+}
+
+function handleVaccineSelection(selected, d) {
+  highlightBars(selected);
+  // set global selected vaccine
+  selected_vaccine = d.Vaccine;
+  // update display
+  d3.select('#vaccine-display')
+    .html(selected_vaccine)
+    .attr('class', selected_vaccine)
 
   // Call function to update map
-  onchange(selected_hbar);
+  onchange(selected_vaccine);
 };
 
 var getCoverageData = function(selected_year, selected_country) {
   var result = [];
 
-  if (selected_year) {
+  if (selected_year && selected_country) {
+    data.forEach(function(d) {
+      if ((d.Cname == selected_country)) {
+        // console.log(parseInt(selected_year), d[parseInt(selected_year)]);
+        result.push({'Vaccine': d.Vaccine, 'Coverage': d[selected_year]})
+      }
+    });
+  }
+  else if (selected_year) {
     mean_coverage_by_year.forEach(function(d) {
       if (d.Year == selected_year) {
         result.push({'Vaccine': d.Vaccine, 'Coverage': d.Coverage})
@@ -139,14 +171,13 @@ var getCoverageData = function(selected_year, selected_country) {
     });
   }
 
-  if (selected_country) {
-    console.log(selected_country);
-  }
   return result;
 }
 
 function updateHBar(selected_year, selected_country) {
-  var mean_data = getCoverageData(selected_year, selected_country)
-  update(mean_data);
+  console.log(selected_year, selected_country, selected_vaccine)
+  var mean_coverage_data = getCoverageData(selected_year, selected_country)
+  // console.log(mean_coverage_data)
+  update(mean_coverage_data);
 }
 // });

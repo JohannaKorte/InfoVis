@@ -62,7 +62,7 @@ function updateMap(h) {
   map.column(slider_year).update();
 
   // update hbar
-  updateHBar(slider_year);
+  updateHBar(slider_year, selected_country);
 
   // make tickmark text big and bold when year is selected
   d3.selectAll('.slider-tick').nodes().forEach(function(t){

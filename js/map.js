@@ -1,6 +1,5 @@
 // NOTE: By declaring a variable without 'var', makes it a global variable
-// define(['d3v3'], function(d3){
-// |---------------- Map -------------------|
+
 var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
     .colors(colorbrewer.YlGnBu[9])
@@ -9,7 +8,7 @@ var map = d3.geomap.choropleth()
     .legend(true)
     .unitId('ISO_code')
     .zoomFactor(3)
-    .postUpdate(selection);
+    .postUpdate(handleCountrySelection);
 
 // TODO: adjust legend, and color ranges
 // see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
@@ -25,7 +24,8 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
 
     // TODO: make this general
     // get selections
-    var selected_vaccine = 'BCG'
+    selected_vaccine = null;
+    selected_country = null;
 
     // get data for selected Vaccine and update selected year
     var data_vaccine = getData(selected_vaccine);
@@ -80,41 +80,49 @@ function onchange(selected_vaccine) {
 	// var selected_vaccine = d3.select('#vaccine-select').property('value');
   // var selected = document.getElementById("#hbar-svg").contentWindow.selected_hbar;
 
-  console.log(selected_vaccine)
+  // console.log(selected_vaccine)
   // set new map data
   map.data = getData(selected_vaccine);
   // update map
   map.update()
 };
 
-function selection() {
-  console.log('selection');
+
+function handleCountrySelection() {
+  // select all units (countries)
   var units = d3.select('#map').selectAll('.unit')
 
+  // when clicked on a unit
   units
     .on("click", function(d){
-      console.log(d);
-      console.log(this);
+      selected_country = d.properties.name;
+      // make all units transparent
       units
           .style("stroke-width", 0.4)
           .style('opacity', 0.5)
+      // except the unit clicked on
       d3.select(this)
           .style("stroke-width", 0.5)
           .style('opacity', 1);
+
+      // var selected_country = d.properties.name;
+      updateHBar(slider_year, selected_country);
+      // // update horizontal bar
+      // updateHBar(slider_year, selected_country);
     });
 
-  d3.select('rect.background')
+  // select the sea area (rectangle) on the map
+  var sea = d3.select('rect.background')
+
+  // when clicked on the sea
+  sea
     .on('click', function(d) {
-      units
-        .style("stroke-width", 0.5)
-        .style('opacity', 1);
-      // console.log(d);
-      // console.log(this);
-    })
+        selected_country = null;
+        // remove transparancies of all units
+        units
+          .style("stroke-width", 0.5)
+          .style('opacity', 1);
+
+        updateHBar(slider_year, null);
+      });
 }
-
-
-
-// |-------------------- Slider ------------------------|
-
-// });
