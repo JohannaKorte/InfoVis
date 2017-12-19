@@ -69,7 +69,7 @@ function updateMap(h) {
 
     if (parseInt(t.innerHTML) == slider_year) {
       d3.select(t).style('font-weight', 'bold')
-                  .style('font-size', '140%');
+                  .style('font-size', '150%');
 
     } else {
       d3.select(t).style('font-weight', 'normal')

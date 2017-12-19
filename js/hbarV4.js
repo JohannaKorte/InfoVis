@@ -41,19 +41,17 @@ function update(data) {
           .range(colors);
 
   // left axis
-	g.select('.y axis')
+	g.select('.y.axis')
 		  .call(d3.axisLeft(y))
 	//bottom axis
-	g.select('.x axis')
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(11).tickSizeInner([-height]));
+	g.select('.x.axis')
+    .call(d3.axisBottom(x));
 
 	//select all bars on the graph, take them out, and exit the previous data set.
 	//then you can add/enter the new data set
 	var bars = g.selectAll(".bar")
-        					.remove()
-        					.exit()
-        					.data(data)
+                .remove().exit()
+        				.data(data)
 
 	//now actually give each rectangle the corresponding data
 	bars.enter().append("rect")
