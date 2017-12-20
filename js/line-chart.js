@@ -1,34 +1,18 @@
 
 // define(["d3v3"], function(d3) {
-var margin = {
-    top: 20,
-    right: 80,
-    bottom: 30,
-    left: 50
-  },
+var margin = {top: 20, right: 80, bottom: 30, left: 50},
   width = 800 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
-var parseDate = d3.time.format("%Y%m%d").parse;
+var parseDate = d3.timeParse("%Y%m%d");
 
-var x = d3.time.scale()
-  .range([0, width]);
+var x = d3.scaleTime().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
 
-var y = d3.scale.linear()
-  .range([height, 0]);
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-var color = d3.scale.category10();
-
-var xAxis = d3.svg.axis()
-  .scale(x)
-  .orient("bottom");
-
-var yAxis = d3.svg.axis()
-  .scale(y)
-  .orient("left");
-
-var line = d3.svg.line()
-  .interpolate("basis")
+var line = d3.line()
+  // .interpolate("basis")
   .x(function(d) {
     return x(d.date);
   })
@@ -40,8 +24,7 @@ var svg = d3.select("#line-div").append("svg")
   .attr('id', 'line-svg')
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // var data = d3.tsv.parse(myData);
 d3.tsv('data/line-data.tsv', function (error, data) {
@@ -94,12 +77,12 @@ d3.tsv('data/line-data.tsv', function (error, data) {
       });
     })
   ]);
-
+  // console.log(cities);
   var legend = svg.selectAll('g')
     .data(cities)
     .enter()
-    .append('g')
-    .attr('class', 'legend');
+      .append('g')
+      .attr('class', 'legend');
 
   legend.append('rect')
     .attr('x', width - 20)
@@ -124,17 +107,18 @@ d3.tsv('data/line-data.tsv', function (error, data) {
   svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+    .call(d3.axisBottom(x));
 
   svg.append("g")
     .attr("class", "y axis")
-    .call(yAxis)
+    .call(d3.axisLeft(y))
     .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Temperature (ºF)");
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Temperature (ºF)");
+
 
   var city = svg.selectAll(".city")
     .data(cities)
