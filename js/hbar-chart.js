@@ -23,8 +23,9 @@ var mean_coverage_by_year;
 
 d3.csv("data/test-mean.csv", function(error, data) {
   if (error) throw error;
-  // console.log(data);
   this.mean_coverage_by_year = data;
+
+  // start with first year
   var mean_coverage_1980 = getCoverageData(1980, null);
   draw(mean_coverage_1980);
 });

@@ -89,7 +89,7 @@ text    {
    text-anchor:left;
    font-size:12px;
    font-family:sans-serif,Helvetica,Arial;
-   font-weight:bold;
+   /* font-weight:bold; */
 }
 
 .iconPlain  {

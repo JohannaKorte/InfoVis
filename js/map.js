@@ -25,7 +25,7 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
 
     // TODO: make this general
     // get selections
-    selected_vaccine = null;
+    selected_vaccine = 'BCG'; //since it has a nice variation
     selected_country = null;
 
     // get data for selected Vaccine and update selected year
@@ -36,12 +36,7 @@ d3.csv('data/vaccinaties.csv', function(error, data) {
         .datum(data_vaccine)
         .call(map.draw, map);
 
-    // add Slider
     addSlider();
-    //
-    // var units = d3.selectAll('.unit')
-    // // console.log(d3.select('#map'));
-    // units.on('click', function(d){ console.log(d); console.log(this) });
 });
 
 function getData(selected) {
@@ -76,12 +71,6 @@ function getYears() {
 };
 
 function onchange(selected_vaccine) {
-  console.log('onchange');
-  // get selected value
-	// var selected_vaccine = d3.select('#vaccine-select').property('value');
-  // var selected = document.getElementById("#hbar-svg").contentWindow.selected_hbar;
-
-  // console.log(selected_vaccine)
   // set new map data
   map.data = getData(selected_vaccine);
   // update map
@@ -92,7 +81,6 @@ function onchange(selected_vaccine) {
 function handleCountrySelection() {
   // select all units (countries)
   var units = d3.select('#map').selectAll('.unit')
-
   // when clicked on a unit
   units
     .on("click", function(d){
@@ -106,15 +94,12 @@ function handleCountrySelection() {
           .style("stroke-width", 0.5)
           .style('opacity', 1);
 
-      // var selected_country = d.properties.name;
+      // update horizontal bar
       updateHBar(slider_year, selected_country);
-      // // update horizontal bar
-      // updateHBar(slider_year, selected_country);
     });
 
   // select the sea area (rectangle) on the map
   var sea = d3.select('rect.background')
-
   // when clicked on the sea
   sea
     .on('click', function(d) {

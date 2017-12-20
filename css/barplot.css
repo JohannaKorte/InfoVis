@@ -1,0 +1,25 @@
+/* html, body {
+    margin: 0;
+    height: 100%;
+} */
+.bar {
+    fill: #adfff1
+}
+
+.bar:hover {
+    fill: #21f5ff
+}
+
+.test {
+    fill: #ffd35f;
+    font-family: sans-serif
+}
+
+#bar-svg #g-bar{
+  height: 100%;
+}
+
+/*.text {*/
+/*fill: #3937ff;*/
+/*font-family: sans-serif*/
+/*}*/
