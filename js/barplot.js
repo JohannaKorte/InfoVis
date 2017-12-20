@@ -11,8 +11,8 @@ d3.csv("data/diseases-melt.csv", function (data) {
 
     // set the dimensions and margins of the graph
     var margin = {top: 3, right: 20, bottom: 60, left: 70},
-         width = 800 - margin.left - margin.right,
-         height = 140 - margin.top - margin.bottom;
+         width = 900 - margin.left - margin.right,
+         height = 160 - margin.top - margin.bottom;
 
     // set the ranges
     var x = d3.scaleBand()
@@ -22,9 +22,11 @@ d3.csv("data/diseases-melt.csv", function (data) {
         .range([height, 0]);
 
     var svg = d3.select("#bar-div").append("svg")
+        .attr('id', 'bar-svg')
         .attr("height",height + margin.top + margin.bottom)
         .attr("width",width + margin.left + margin.right)
         .append("g")
+        .attr('id', 'g-bar')
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
@@ -78,10 +80,8 @@ d3.csv("data/diseases-melt.csv", function (data) {
         .call(d3.axisLeft(y));
 
     // Only show axis tick labels every 5 years
-    var ticks = d3.selectAll(".tick text");
-    ticks.attr("class", function(d,i){
-        if(i%5 != 0) d3.select(this).remove();
-    });
+    // var ticks = d3.selectAll(".tick text");
+    // ticks.attr("class", function(d,i){
+    //     if(i%5 != 0) d3.select(this).remove();
+    // });
 });
-
-

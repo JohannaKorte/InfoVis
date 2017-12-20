@@ -1,7 +1,7 @@
-html, body {
+/* html, body {
     margin: 0;
     height: 100%;
-}
+} */
 .bar {
     fill: #adfff1
 }
@@ -13,6 +13,10 @@ html, body {
 .test {
     fill: #ffd35f;
     font-family: sans-serif
+}
+
+#bar-svg #g-bar{
+  height: 100%;
 }
 
 /*.text {*/
