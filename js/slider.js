@@ -1,8 +1,8 @@
 function addSlider() {
-  var svg = d3.select("#slider-svg"),
-  margin = {right: 15, left: 15},
-  width = +svg.attr("width") - margin.left - margin.right,
-  height = +svg.attr("height");
+  var svg = d3.select("#slider-svg");
+  var margin = {right: 15, left: 15};
+  var width = +svg.attr("width") - margin.left - margin.right;
+  var height = +svg.attr("height");
 
   years = getYears();
 

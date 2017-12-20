@@ -1,12 +1,8 @@
-// define(["d3v4"], function(d3) {
-  // this.d3 = d3;
-// console.log(d3);
 
-// console.log(basic_chloropleth.slider_year);
-var svg = d3.select("#hbar-svg"),
-  margin = {top: 20, right: 20, bottom: 30, left: 80},
-  width = +svg.attr("width") - margin.left - margin.right,
-  height = +svg.attr("height") - margin.top - margin.bottom;
+var svg = d3.select("#hbar-svg");
+var margin = {top: 20, right: 20, bottom: 30, left: 80};
+var width = +svg.attr("width") - margin.left - margin.right;
+var height = +svg.attr("height") - margin.top - margin.bottom;
 
 var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
@@ -20,11 +16,9 @@ var g = svg.append("g")
 var colors = colorbrewer.GnBu[9];
 
 var mean_coverage_by_year;
-
 d3.csv("data/test-mean.csv", function(error, data) {
   if (error) throw error;
   this.mean_coverage_by_year = data;
-
   // start with first year
   var mean_coverage_1980 = getCoverageData(1980, null);
   draw(mean_coverage_1980);
@@ -93,8 +87,8 @@ function draw(data) {
 
   g.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).ticks(11).tickSizeInner([-height]));
+      .attr("transform", "translate(0," + 370 + ")")
+      .call(d3.axisBottom(x));
 
   g.append("g")
       .attr("class", "y axis")
@@ -122,7 +116,7 @@ function draw(data) {
 };
 
 function highlightBars(selected) {
-  console.log(selected);
+  // console.log(selected);
   // make all bars transparent
   g.selectAll("rect").style("stroke-width", 0)
                       .style('opacity', 0.6);
@@ -149,7 +143,7 @@ var getCoverageData = function(selected_year, selected_country) {
   var result = [];
 
   if (selected_year && selected_country) {
-    console.log(data);
+    // console.log(data);
     data.forEach(function(d) {
       if ((d.ISO_code == selected_country)) {
         // console.log(parseInt(selected_year), d[parseInt(selected_year)]);
@@ -171,7 +165,6 @@ var getCoverageData = function(selected_year, selected_country) {
 function updateHBar(selected_year, selected_country) {
   console.log(selected_year, selected_country, selected_vaccine)
   var mean_coverage_data = getCoverageData(selected_year, selected_country)
-  console.log(mean_coverage_data);
   update(mean_coverage_data);
 }
 // });

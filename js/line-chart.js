@@ -1,30 +1,25 @@
-
-// define(["d3v3"], function(d3) {
-var margin = {top: 20, right: 80, bottom: 30, left: 50},
-  width = 800 - margin.left - margin.right,
-  height = 400 - margin.top - margin.bottom;
+var margin = {top: 20, right: 80, bottom: 30, left: 50};
+var width = 500 - margin.left - margin.right;
+var height = 200 - margin.top - margin.bottom;
 
 var parseDate = d3.timeParse("%Y%m%d");
 
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
+var xLine = d3.scaleTime().range([0, width]);
+var yLine = d3.scaleLinear().range([height, 0]);
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 var line = d3.line()
   // .interpolate("basis")
-  .x(function(d) {
-    return x(d.date);
-  })
-  .y(function(d) {
-    return y(d.temperature);
-  });
+  .x(function(d) {return xLine(d.date);})
+  .y(function(d) {return yLine(d.temperature);});
 
 var svg = d3.select("#line-div").append("svg")
-  .attr('id', 'line-svg')
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr('id', 'line-svg')
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // var data = d3.tsv.parse(myData);
 d3.tsv('data/line-data.tsv', function (error, data) {
@@ -61,11 +56,11 @@ d3.tsv('data/line-data.tsv', function (error, data) {
     };
   });
 
-  x.domain(d3.extent(data, function(d) {
+  xLine.domain(d3.extent(data, function(d) {
     return d.date;
   }));
 
-  y.domain([
+  yLine.domain([
     d3.min(cities, function(c) {
       return d3.min(c.values, function(v) {
         return v.temperature;
@@ -107,11 +102,11 @@ d3.tsv('data/line-data.tsv', function (error, data) {
   svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(xLine));
 
   svg.append("g")
     .attr("class", "y axis")
-    .call(d3.axisLeft(y))
+    .call(d3.axisLeft(yLine))
     .append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
@@ -142,7 +137,7 @@ d3.tsv('data/line-data.tsv', function (error, data) {
       };
     })
     .attr("transform", function(d) {
-      return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")";
+      return "translate(" + xLine(d.value.date) + "," + yLine(d.value.temperature) + ")";
     })
     .attr("x", 3)
     .attr("dy", ".35em")
@@ -211,8 +206,8 @@ d3.tsv('data/line-data.tsv', function (error, data) {
 
       d3.selectAll(".mouse-per-line")
         .attr("transform", function(d, i) {
-          console.log(width/mouse[0])
-          var xDate = x.invert(mouse[0]),
+          // console.log(width/mouse[0])
+          var xDate = xLine.invert(mouse[0]),
               bisect = d3.bisector(function(d) { return d.date; }).right;
               idx = bisect(d.values, xDate);
 
@@ -232,12 +227,9 @@ d3.tsv('data/line-data.tsv', function (error, data) {
           }
 
           d3.select(this).select('text')
-            .text(y.invert(pos.y).toFixed(2));
+            .text(yLine.invert(pos.y).toFixed(2));
 
           return "translate(" + mouse[0] + "," + pos.y +")";
         });
     });
 });
-
-  // console.log(data);
-// });
