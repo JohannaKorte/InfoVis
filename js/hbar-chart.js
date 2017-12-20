@@ -58,10 +58,8 @@ function update(data) {
     .attr("class", "bar")
     .attr('id', function(d) {
       if (d.Vaccine == selected_vaccine) {
-        console.log(this);
-        console.log(d);
-        highlightBars(this)
-        return d.Vaccine}
+        highlightBars(this);
+        return 'selected-hbar'}
     })
     .attr("x", 0)
     .attr("height", y.bandwidth())
@@ -77,12 +75,6 @@ function update(data) {
     })
     .on("mouseout", function(d){ tooltip.style("display", "none");})
     .on('click', function(d) { handleVaccineSelection(this, d); })
-    .on('load', function(d){
-      console.log('onload')
-      console.log(d);
-
-    })
-    // .call(function(d){ if (d.Vaccine == selected_vaccine) {return highlightBars(this)}});
 
 
 }
@@ -132,7 +124,7 @@ function highlightBars(selected) {
   console.log(selected);
   // make all bars transparent
   g.selectAll("rect").style("stroke-width", 0)
-                      .style('opacity', 0.5);
+                      .style('opacity', 0.6);
   // except for the bar clicked on
   d3.select(selected).style("stroke-width", 2)
                      .style("stroke", 'black')
@@ -156,8 +148,9 @@ var getCoverageData = function(selected_year, selected_country) {
   var result = [];
 
   if (selected_year && selected_country) {
+    console.log(data);
     data.forEach(function(d) {
-      if ((d.Cname == selected_country)) {
+      if ((d.ISO_code == selected_country)) {
         // console.log(parseInt(selected_year), d[parseInt(selected_year)]);
         result.push({'Vaccine': d.Vaccine, 'Coverage': d[selected_year]})
       }
@@ -177,7 +170,7 @@ var getCoverageData = function(selected_year, selected_country) {
 function updateHBar(selected_year, selected_country) {
   console.log(selected_year, selected_country, selected_vaccine)
   var mean_coverage_data = getCoverageData(selected_year, selected_country)
-  // console.log(mean_coverage_data)
+  console.log(mean_coverage_data);
   update(mean_coverage_data);
 }
 // });

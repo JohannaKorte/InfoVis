@@ -14,11 +14,11 @@
 .toolTip {
 	position: absolute;
   display: none;
-  width: 80px;
+  width: 50px;
   height: auto;
   background: none repeat scroll 0 0 #ffffff;
   border: 1px solid #6F257F;
-  padding: 14px;
+  padding: 10px;
   text-align: center;
 }
 
@@ -31,6 +31,8 @@ body {
   stroke: black;
   opacity: 1;
 }
-/* #hbar-svg {
+
+/* .hbar {
 	background-color: white;
+  opacity: 1;
 } */

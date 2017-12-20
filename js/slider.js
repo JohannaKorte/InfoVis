@@ -73,6 +73,7 @@ function updateMap(h) {
 
     } else {
       d3.select(t).style('font-weight', 'normal')
+                  // .style('color', 'black')
                   .style('font-size', '100%');
     }
   });

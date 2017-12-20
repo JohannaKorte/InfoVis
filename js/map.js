@@ -7,7 +7,8 @@ var map = d3.geomap.choropleth()
     .scale(150)
     .legend(true)
     .unitId('ISO_code')
-    .zoomFactor(3)
+    .format(function(d){return d3.format(",.0%")(d/100)})
+    // .zoomFactor(3)
     .postUpdate(handleCountrySelection);
 
 // TODO: adjust legend, and color ranges
@@ -95,11 +96,11 @@ function handleCountrySelection() {
   // when clicked on a unit
   units
     .on("click", function(d){
-      selected_country = d.properties.name;
+      selected_country = d.id;
       // make all units transparent
       units
           .style("stroke-width", 0.4)
-          .style('opacity', 0.5)
+          .style('opacity', 0.6)
       // except the unit clicked on
       d3.select(this)
           .style("stroke-width", 0.5)

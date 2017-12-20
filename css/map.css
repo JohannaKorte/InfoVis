@@ -2,12 +2,18 @@ h1 {
   text-align: center;
 }
 
+
+path.unit:hover{
+    stroke: white;
+    stroke-width: 3;
+}
+
 #vaccine-display {
   width: 10%;
   height: 100px;
   position: absolute;
   right: 0;
-  color: white;
+  color: black;
   font-size: 30px;
 }
 
@@ -33,7 +39,7 @@ h1 {
   /* background-color: blue; */
 }
 
-#pictogram {
+/* #pictogram {
   width: 50%;
   height: 80px;
   float: right;
@@ -42,7 +48,7 @@ h1 {
 #dropdown{
   width: 10%
   float: left;
-}
+} */
 
 #hbar {
   float:left;
@@ -76,7 +82,7 @@ h1 {
    float:left;
    width:400px;
    height:50px;
-}*/
+}
 
 text    {
    fill:#bb6d82;
@@ -94,17 +100,6 @@ text    {
    fill:#bb6d82;
 }
 
-path.unit:hover{
-    stroke: white;
-    stroke-width: 1;
-}
-
-/*rect    {
-   fill:#fff1e0;
-}*/
-
-
-/* css for slider */
 .ticks {
   font: 10px sans-serif;
 }
