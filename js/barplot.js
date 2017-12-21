@@ -38,7 +38,7 @@ var select_disease = d3.select('#dropdown')
 function drawBarChart() {
 
   // set the dimensions and margins of the graph
-  var margin = {top: 3, right: 20, bottom: 60, left: 70};
+  var margin = {top: 40, right: 20, bottom: 60, left: 70};
   var width = 800 - margin.left - margin.right;
   var height = 200 - margin.top - margin.bottom;
 
@@ -58,19 +58,11 @@ function drawBarChart() {
       .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-
-  // var dataArray = [];
-  // var diseasenameArray = [];
   var data = getDiseaseIncidence();
-  console.log(data);
 
   // Scale the range of the data in the domains
-  // x.domain(data.map(function (d,i) {return diseasenameArray[i]}));
-  // y.domain([0, d3.max(dataArray)]);
   x.domain(data.map(function(d) { return d.Year; }));
   y.domain([0, d3.max(data, function(d) { return parseInt(d.Incidence); })]);
-
-  // var barwidth = (data.length + 1)
 
   svg.selectAll("rect")
       .data(data)
@@ -82,30 +74,22 @@ function drawBarChart() {
       .attr("y", function(d) { return y(d.Incidence); })
       .on("mouseover", function(d){
           tooltip
-            .style("left", d3.event.pageX - 50 + "px")
-            .style("top", d3.event.pageY - 70 + "px")
+            .style("left", d3.event.pageX - 40 + "px")
+            .style("top", d3.event.pageY - 60 + "px")
             .style("display", "inline-block")
             .html(d.Incidence);
       })
       .on("mouseout", function(d){ tooltip.style("display", "none");})
 
-  // svg.selectAll("text")
-  //     .data(data)
-  //     .enter().append("text")
-  //     .text(function (d) {return d})
-  //     .attr('class', 'test')
-  //     .attr("transform", "rotate(-90)")
-  //     .attr("class", "text")
-      // .attr("x", 0 - height)
-      // .attr("y", function(d,i) { return i * (width / barwidth) + (barwidth /2);});
 
   // add the x Axis
   svg.append("g")
-      .attr('class', 'x axis bar')
+      .attr('id', 'x-axis-bar')
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x))
-      .selectAll("text")
-            .style("text-anchor", "end")
+
+  svg.selectAll("text")
+            .style("text-anchor", "middle")
             .attr("dx", "-.8em")
             .attr("dy", ".15em");
 
@@ -123,7 +107,7 @@ function drawBarChart() {
       .call(d3.axisLeft(y));
 
   // Only show axis tick labels every 5 years
-  var ticks = svg.selectAll(".x.axis.bar .tick text");
+  var ticks = svg.selectAll("#x-axis-bar .tick text");
   ticks.attr("class", function(d,i){
       if(i%5 != 0) d3.select(this).remove();
   });

@@ -1,4 +1,4 @@
-var margin = {top: 5, right: 80, bottom: 30, left: 50};
+var margin = {top: 40, right: 80, bottom: 30, left: 50};
 var width = 400 - margin.left - margin.right;
 var height = 200 - margin.top - margin.bottom;
 
@@ -7,7 +7,7 @@ var parseTime = d3.timeParse("%Y");
 var xLine = d3.scaleTime().range([0, width]);
 var yLine = d3.scaleLinear().range([height, 0]);
 
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+var color = d3.scaleOrdinal(['rgb(237, 248, 177)', 'rgb(34, 94, 168)']);
 
 var line = d3.line()
   // .interpolate("basis")
