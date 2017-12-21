@@ -38,7 +38,7 @@ d3.csv('data/coverage-education-linear.csv', function(error, data) {
 function drawLineChart() {
 
   var data = getCountryEducation();
-  console.log(data);
+  // console.log(data);
 
   color.domain(d3.keys(data[0]).filter(function(key) {
     return key !== "Year";

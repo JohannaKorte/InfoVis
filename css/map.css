@@ -6,7 +6,7 @@ h1 {
 
 path.unit:hover{
     stroke: white;
-    stroke-width: 3;
+    stroke-width: 2;
 }
 
 #vaccine-display {
@@ -46,11 +46,6 @@ path.unit:hover{
   float: right;
 } */
 
-#dropdown{
-  width: 10%
-  float: right;
-}
-
 /* #hbar {
   float:left;
   width:20%
@@ -58,7 +53,7 @@ path.unit:hover{
 
 .legend-bg {
   opacity: 0;
-  color:  white; 
+  color:  white;
 } */
 
 #map {

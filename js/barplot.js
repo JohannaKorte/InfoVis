@@ -61,8 +61,6 @@ function drawBarChart() {
 
   // var dataArray = [];
   // var diseasenameArray = [];
-
-
   var data = getDiseaseIncidence();
   console.log(data);
 
@@ -73,17 +71,6 @@ function drawBarChart() {
   y.domain([0, d3.max(data, function(d) { return parseInt(d.Incidence); })]);
 
   // var barwidth = (data.length + 1)
-  // svg.selectAll(".bar")
-  //     .data(top20)
-  //   .enter().append("rect")
-  //     .attr("class", "bar")
-  //     .attr("x", function(d) { return x(d.country); })
-  //     .attr("width", x.rangeBand())
-  //     .attr("y", function(d) { return y(d.coverage); })
-  //     .attr("height", function(d) { return height - y(d.coverage); })
-  //     .on('mouseover', tip.show)
-  //     .on('mouseout', tip.hide)
-  //
 
   svg.selectAll("rect")
       .data(data)
@@ -167,59 +154,53 @@ function updateBarChart() {
   drawBarChart();
 }
 
-function getCountryIncidence() {
-  var result = [];
+// function getCountryIncidence() {
+//   var result = [];
+//
+//   // incidence_data.forEach(function(d){
+//   //   // if disease is related to vaccine
+//   //   if(diseases.indexOf(d.Dissease) > -1) {
+//   //     // if selected country and selected disease
+//   //     if (d.Country == selected_country && d.Disease == selected_disease) {
+//   //
+//   //       }
+//   //     }
+//   //   };
+//   //   // selected_vaccine
+//   //   if ((d.Disease == selected_disease) && (d)) {
+//   //
+//   //   }
+//   // });
+//   //
+//   // data.forEach(function (d) {
+//   //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
+//   //     {dataArray.push(parseInt(d.Incidence))}
+//   //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
+//   //     {diseasenameArray.push(parseInt(d.Year))}
+//   // })
+// }
 
-  // incidence_data.forEach(function(d){
-  //   // if disease is related to vaccine
-  //   if(diseases.indexOf(d.Dissease) > -1) {
-  //     // if selected country and selected disease
-  //     if (d.Country == selected_country && d.Disease == selected_disease) {
-  //
-  //       }
-  //     }
-  //   };
-  //   // selected_vaccine
-  //   if ((d.Disease == selected_disease) && (d)) {
-  //
-  //   }
-  // });
-  //
-  // data.forEach(function (d) {
-  //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
-  //     {dataArray.push(parseInt(d.Incidence))}
-  //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
-  //     {diseasenameArray.push(parseInt(d.Year))}
-  // })
-}
-
-var parseTime = d3.timeParse("%Y");
+// var parseTime = d3.timeParse("%Y");
 
 
 function getDiseaseIncidence() {
+  console.log(selected_disease);
   var result = [];
-  console.log(incidence_data[0]);
-  console.log(selected_country);
   incidence_data.forEach(function(d){
-    // console.log(d);
     // if selected country and selected disease
     if((d.Disease == selected_disease) && (d.Country_code == selected_country)) {
-      // console.log(d);
-      result.push({'Year': d.Year, 'Incidence': d.Incidence})
+      result.push({'Year': d.Year, 'Incidence': parseInt(d.Incidence)})
     };
   });
   return result;
-  // data.forEach(function (d) {
-  //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
-  //     {dataArray.push(parseInt(d.Incidence))}
-  //     if (d.Country == 'Algeria' && d.Disease == 'diphtheria')
-  //     {diseasenameArray.push(parseInt(d.Year))}
-  // })
 }
 
 function handleDiseaseSelection() {
  selected_disease = d3.select('#disease-select').property('value');
  console.log(selected_disease);
+ removeBarChart();
+ drawBarChart();
+
 }
 
 function getCountryEducation() {
