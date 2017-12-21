@@ -1,5 +1,5 @@
-var margin = {top: 20, right: 80, bottom: 30, left: 50};
-var width = 430 - margin.left - margin.right;
+var margin = {top: 5, right: 80, bottom: 30, left: 50};
+var width = 400 - margin.left - margin.right;
 var height = 200 - margin.top - margin.bottom;
 
 var parseTime = d3.timeParse("%Y");
@@ -136,6 +136,14 @@ function drawLineChart() {
       return color(d.name);
     });
 
+  city.selectAll(".dot")
+        .data(city.filter(function(d) { return d; }))
+        .enter().append("circle")
+          .attr("class", "dot")
+          .attr("cx", line.x())
+          .attr("cy", line.y())
+          .attr("r", 3.5);
+
   mouseG = svg.append("g")
     .attr("class", "mouse-over-effects");
 
@@ -144,6 +152,7 @@ function drawLineChart() {
     .style("stroke", "black")
     .style("stroke-width", "1px")
     .style("opacity", "0");
+
 
   var lines = document.getElementsByClassName('line');
 
@@ -226,8 +235,13 @@ function drawLineChart() {
 }
 
 
-function eraseLineChart(){
+function removeLineChart(){
    svg.selectAll('g').remove().exit();
+}
+
+function updateLineChart() {
+  removeLineChart();
+  drawLineChart();
 }
 
 function getCountryEducation() {

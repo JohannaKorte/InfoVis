@@ -2,13 +2,12 @@
 
 var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
-    .colors(colorbrewer.YlGnBu[9])
+    .colors(colorbrewer.YlGnBu[8])
     .width('800')
-    .scale(140)
     .legend(true)
+    .scale(140)
     .unitId('ISO_code')
     .format(function(d){return d3.format(",.0%")(d/100)})
-    // .zoomFactor(3)
     .postUpdate(handleCountrySelection);
 
 // TODO: adjust legend, and color ranges
@@ -101,11 +100,10 @@ function handleCountrySelection() {
       updateHBar(slider_year, selected_country);
 
       // update line chart
-      eraseLineChart();
-      drawLineChart();
+      updateLineChart();
 
-      //
-      drawBarChart();
+      // show barchart
+      updateBarChart();
     });
 
   // select the sea area (rectangle) on the map
@@ -122,6 +120,9 @@ function handleCountrySelection() {
         updateHBar(slider_year, null);
 
         // remove linechart
-        eraseLineChart();
+        removeLineChart();
+
+        //  remove barchart
+        removeBarChart();
       });
 }

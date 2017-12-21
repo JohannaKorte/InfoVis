@@ -44,26 +44,27 @@ path.unit:hover{
   width: 50%;
   height: 80px;
   float: right;
-}
+} */
 
 #dropdown{
   width: 10%
-  float: left;
-} */
+  float: right;
+}
 
-#hbar {
+/* #hbar {
   float:left;
   width:20%
 }
 
 .legend-bg {
   opacity: 0;
-  /* color:  white; */
-}
+  color:  white; 
+} */
 
 #map {
     width: 70%;
     float: right;
+    height: 400px;
 }
 
 #slider-div {

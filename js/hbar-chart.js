@@ -135,8 +135,15 @@ function handleVaccineSelection(selected, d) {
     .html(selected_vaccine)
     .attr('class', selected_vaccine)
 
-  // Call function to update map
+  // Update map
   onchange(selected_vaccine);
+
+  // update line charset
+  if (selected_country){
+    updateLineChart();
+    updateBarChart();
+  }
+
 };
 
 var getCoverageData = function(selected_year, selected_country) {
