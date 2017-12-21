@@ -90,6 +90,7 @@ function handleCountrySelection() {
       //   selected_country = d.id;
       //   console.log('country already selected');
       //   // update
+      eraseLineChart();
       drawLineChart();
       //   // updateData();
       //
