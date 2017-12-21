@@ -84,7 +84,20 @@ function handleCountrySelection() {
   // when clicked on a unit
   units
     .on("click", function(d){
+      //
       selected_country = d.id;
+      // if (selected_country) {
+      //   selected_country = d.id;
+      //   console.log('country already selected');
+      //   // update
+      drawLineChart();
+      //   // updateData();
+      //
+      // } else {
+      //   selected_country = d.id;
+      //   console.log('country selected for the first time');
+      //
+      // }
       // make all units transparent
       units
           .style("stroke-width", 0.4)
@@ -92,10 +105,14 @@ function handleCountrySelection() {
       // except the unit clicked on
       d3.select(this)
           .style("stroke-width", 0.5)
-          .style('opacity', 1);
+          .style('opacity', 1)
+          .attr('id');
 
       // update horizontal bar
       updateHBar(slider_year, selected_country);
+
+      // update line chart
+      // updateData();
     });
 
   // select the sea area (rectangle) on the map
@@ -110,5 +127,8 @@ function handleCountrySelection() {
           .style('opacity', 1);
 
         updateHBar(slider_year, null);
+
+        // remove linechart
+        eraseLineChart();
       });
 }
