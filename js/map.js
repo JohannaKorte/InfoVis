@@ -4,7 +4,7 @@ var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
     .colors(colorbrewer.YlGnBu[9])
     .width('800')
-    .scale(150)
+    .scale(140)
     .legend(true)
     .unitId('ISO_code')
     .format(function(d){return d3.format(",.0%")(d/100)})
@@ -103,6 +103,9 @@ function handleCountrySelection() {
       // update line chart
       eraseLineChart();
       drawLineChart();
+
+      //
+      drawBarChart();
     });
 
   // select the sea area (rectangle) on the map

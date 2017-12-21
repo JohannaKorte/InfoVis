@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 80, bottom: 30, left: 50};
-var width = 500 - margin.left - margin.right;
+var width = 430 - margin.left - margin.right;
 var height = 200 - margin.top - margin.bottom;
 
 var parseTime = d3.timeParse("%Y");

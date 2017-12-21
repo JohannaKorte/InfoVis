@@ -87,7 +87,7 @@ function draw(data) {
 
   g.append("g")
       .attr("class", "x axis")
-      .attr("transform", "translate(0," + 370 + ")")
+      .attr("transform", "translate(0," + 350 + ")")
       .call(d3.axisBottom(x));
 
   g.append("g")
