@@ -22,7 +22,7 @@ var mapping = {'BCG': ['tuberculosis'],
                'Pol3': ['polio'],
                'Rota1': ['rotavirus'],
                'rotac': ['rotavirus'],
-               'RCV1': ['rubella', 'CRS'],
+               'RCV1': ['CRS', 'rubella'],
                'TT2plus': ['ntetanus'],
                'PAB': ['ntetanus'],
                'VAD1': ['vitamine A'],
@@ -61,6 +61,8 @@ function drawBarChart() {
     d3.select('#bar-placeholder')
           .style('display', 'inline-block')
           .html('[Data is Unknown]');
+  } else {
+    d3.select('#bar-placeholder').style('display', 'none');
   }
 
   // Scale the range of the data in the domains
