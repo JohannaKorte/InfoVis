@@ -1,101 +1,173 @@
-var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var formatPercent = d3.format("%");
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(formatPercent);
-
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Coverage:</strong> <span style='color:red'>" + d.coverage + "</span>";
-  })
-
-var svg = d3.select("body").append("svg")
-    // .attr('id', 'barchart-svg')
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.call(tip);
-
-d3.csv("data/vaccines-melt.csv", type, function(error, data) {
-
-  // x.domain(data.map(function(d) { return d.Vaccine; }));
-  // y.domain([0, d3.max(data, function(d) { return d.value; })]);
-  var selected_vaccine = 'BCG';
-  var selected_year = 2016;
-  var selected_data = [];
-  data.forEach(function(d) {
-    if (d.Vaccine == selected_vaccine && d.variable == selected_year) {
-
-      selected_data.push({'country': d.Cname, 'coverage': d.value});
-    }
-  });
-
-  console.log(selected_data);
-  var sorted = selected_data.sort(function(a,b){return b.coverage - a.coverage});
-  console.log(sorted);
-
-  var top20 = selected_data.slice(0, 20);
-  console.log(top20);
-
-  x.domain(top20.map(function(d) { return d.country; }));
-  y.domain([0, d3.max(top20, function(d) { return d.coverage; })]);
-
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", ".15em")
-            .attr("transform", function(d) {
-                return "rotate(-45)"
-                });;
-
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Population Percentage");
-
-  svg.selectAll(".bar")
-      .data(top20)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.country); })
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.coverage); })
-      .attr("height", function(d) { return height - y(d.coverage); })
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-
+// import data
+var incidence_data;
+d3.csv("data/diseases-melt.csv", function (data) {
+    this.incidence_data = data;
 });
 
+var mapping = {'BCG': ['e_inc_num'],
+               'DTP1': ['diphtheria', 'pertussis', 'ttetanus'],
+               'DTP3': ['diphtheria', 'pertussis', 'ttetanus'],
+               'DTP4': ['diphtheria', 'pertussis', 'ttetanus'],
+               'IPV1': ['polio'],
+               'HepB_BD': ['hepatitis'],
+               'HepB3': ['hepatitis'],
+               'Hib3': ['influenza'],
+               'JapEnc': ['JapEnc'],
+               'MCV1': ['measles'],
+               'MCV2': ['measles'],
+               'MenA': ['meningitis'],
+               'PCV1': ['streptococcus pneumoniae'],
+               'PCV2': ['streptococcus pneumoniae'],
+               'PCV3': ['streptococcus pneumoniae'],
+               'Pol3': ['polio'],
+               'Rota1': ['rotavirus'],
+               'rotac': ['rotavirus'],
+               'RCV1': ['rubella', 'CRS'],
+               'TT2plus': ['ntetanus'],
+               'PAB': ['ntetanus'],
+               'VAD1': ['vitamine A'],
+               'YFV': ['yfever']
+              }
 
-function type(d) {
-  d.value= +d.value;
-  return d;
+var select_disease = d3.select('#dropdown')
+                          .append('select')
+                            .attr('class','select')
+                            .attr('id','disease-select')
+                            .on('change', function(d) { handleDiseaseSelection(d)});
+
+function drawBarChart() {
+
+  // set the dimensions and margins of the graph
+  var margin = {top: 40, right: 20, bottom: 30, left: 70};
+  var width = 800 - margin.left - margin.right;
+  var height = 200 - margin.top - margin.bottom;
+
+  // set the ranges
+  var x = d3.scaleBand()
+      .range([0, width])
+      .padding(0.1);
+  var y = d3.scaleLinear()
+      .range([height, 0]);
+
+  var svg = d3.select("#bar-div").append("svg")
+      .attr('id', 'bar-svg')
+      .attr("height",height + margin.top + margin.bottom)
+      .attr("width",width + margin.left + margin.right)
+      .append("g")
+      .attr('id', 'g-bar')
+      .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+  var data = getDiseaseIncidence();
+
+  // Scale the range of the data in the domains
+  x.domain(data.map(function(d) { return d.Year; }));
+  y.domain([0, d3.max(data, function(d) { return parseInt(d.Incidence); })]);
+
+  svg.selectAll("rect")
+      .data(data)
+      .enter().append("rect")
+      .attr("class", "bar")
+      .attr("height", function(d) { return height - y(d.Incidence); })
+      .attr("width", x.bandwidth())
+      .attr("x", function(d) { return x(d.Year)})
+      .attr("y", function(d) { return y(d.Incidence); })
+      .on("mouseover", function(d){
+          tooltip
+            .style("left", d3.event.pageX - 40 + "px")
+            .style("top", d3.event.pageY - 60 + "px")
+            .style("display", "inline-block")
+            .html(d.Incidence);
+      })
+      .on("mouseout", function(d){ tooltip.style("display", "none");})
+
+
+  // add the x Axis
+  svg.append("g")
+      .attr('id', 'x-axis-bar')
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x))
+
+  svg.selectAll("text")
+            .style("text-anchor", "middle")
+            .attr("dx", "-.8em")
+            .attr("dy", ".15em");
+
+
+  svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr('x', 0-(height / 2))
+      .attr('y', 15-(margin.left) )
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Incidence");
+
+  // add the y Axis
+  svg.append("g")
+      .call(d3.axisLeft(y));
+
+  // Only show axis tick labels every 5 years
+  var ticks = svg.selectAll("#x-axis-bar .tick text");
+  ticks.attr("class", function(d,i){
+      if(i%5 != 0) d3.select(this).remove();
+  }).style('color', 'white');
+}
+
+function removeBarChart() {
+  d3.select('#bar-svg').remove().exit();
+}
+
+function updateBarChart() {
+  removeBarChart();
+
+  // update dropdown list of diseases
+  var diseases = mapping[selected_vaccine];
+  // call select func to create dropdown and add labels
+
+  //  set selction options
+  select_disease.selectAll('option').remove().exit();
+  var options_diseases = select_disease
+      .selectAll('option')
+        .data(diseases).enter()
+        .append('option')
+        .text(function (d) { return d; });
+
+  selected_disease = d3.select('#disease-select').property('value');
+  console.log(selected_disease);
+
+  drawBarChart();
+}
+
+
+function getDiseaseIncidence() {
+  console.log(selected_disease);
+  var result = [];
+  incidence_data.forEach(function(d){
+    // if selected country and selected disease
+    if((d.Disease == selected_disease) && (d.Country_code == selected_country)) {
+      result.push({'Year': d.Year, 'Incidence': parseInt(d.Incidence)})
+    };
+  });
+  return result;
+}
+
+function handleDiseaseSelection() {
+ selected_disease = d3.select('#disease-select').property('value');
+ console.log(selected_disease);
+ removeBarChart();
+ drawBarChart();
+
+}
+
+function getCountryEducation() {
+  var result = [];
+    // console.log(selected_country);
+  coverage_education.forEach(function(d) {
+    // console.log(d);
+    if ((d.Vaccine == selected_vaccine) && (d.Country_code == selected_country)) {
+      // console.log(parseDate(d.Year));
+      result.push({'Year': d.Year, 'Coverage': d.Coverage, 'Enrollment': d.Enrollment})
+    }
+  });
+  return result;
 }

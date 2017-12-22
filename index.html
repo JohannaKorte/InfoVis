@@ -5,23 +5,21 @@
   <meta charset="utf-8">
   <!-- import css -->
   <link rel="stylesheet" type="text/css" href='css/map.css'>
-  <!-- <link rel ='stylesheet' type='text/css' href='css/slider.css'> -->
+  <link rel ='stylesheet' type='text/css' href='css/slider.css'>
+  <link rel="stylesheet" type="text/css" href='css/hbarchart.css'>
+  <link rel ='stylesheet' type='text/css' href='css/linechart.css'>
+  <link rel="stylesheet" type="text/css" href="css/barchart.css">
   <link href="d3-geomap/css/d3.geomap.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href='css/hbar-chart.css'>
-  <link rel ='stylesheet' type='text/css' href='css/line-chart.css'>
-  <link rel="stylesheet" type="text/css" href="css/barplot.css">
 
   <!-- import js -->
   <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
   <script src="d3-geomap/js/d3.geomap.min.js"></script>
 
-  <!-- <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script> -->
   <!--Above files are based on d3.v3, but files below are
       dependent on d3.v4, so let's import v4 it here-->
   <script src="//d3js.org/d3.v4.min.js"></script>
   <script src="d3-drag/d3-drag.js"></script>
 </head>
-<!-- background="images/under-the-sea-background.jpg" -->
 <body background="images/under-the-sea-background.jpg">
   <h1>Exploring the Trend of World's Vaccination Coverage</h1>
   <div id='slider-div'>
@@ -37,22 +35,13 @@
     <div id='line-div'></div>
     <div id='bar-div'></div>
     <div id='dropdown'></div>
-    <!-- <div id='dropdown' class='dash'></div> -->
-    <!-- <div id='pictogram' class='dash'></div> -->
   </div>
-  <!-- <div id='line-plot'></div> -->
-
 
   <script src='js/map.js'></script>
-  <script src='js/hbar-chart.js'></script>
+  <script src='js/hbarchart.js'></script>
   <script src='js/slider.js'></script>
-  <script src='js/barplot.js'></script>
-  <script src='js/line-chart.js'></script>
-
-  <!-- <script src='js/pictogram.js'></script> -->
-  <!-- <script src='js/barchart.js'></script> -->
-
-  <!-- <script data-main="js/main" src="js/require.js"></script> -->
+  <script src='js/barchart.js'></script>
+  <script src='js/linechart.js'></script>
 
 </body>
 

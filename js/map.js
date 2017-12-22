@@ -10,8 +10,6 @@ var map = d3.geomap.choropleth()
     .format(function(d){return d3.format(",.0%")(d/100)})
     .postUpdate(handleCountrySelection);
 
-// TODO: adjust legend, and color ranges
-// see similar visualization using same data: http://apps.who.int/gho/cabinet/uhc.jsp
 
 d3.csv('data/vaccinaties.csv', function(error, data) {
     // set data to global

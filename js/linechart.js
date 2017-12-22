@@ -10,7 +10,7 @@ var yLine = d3.scaleLinear().range([height, 0]);
 var color = d3.scaleOrdinal(['rgb(237, 248, 177)', 'rgb(34, 94, 168)']);
 
 var line = d3.line()
-  // .interpolate("basis")
+  // .curve(d3.curveCardinal)
   .x(function(d) {return xLine(d.date);})
   .y(function(d) {return yLine(d.temperature);});
 
@@ -153,7 +153,6 @@ function drawLineChart() {
     .style("stroke-width", "1px")
     .style("opacity", "0");
 
-
   var lines = document.getElementsByClassName('line');
 
   var mousePerLine = mouseG.selectAll('.mouse-per-line')
@@ -246,11 +245,8 @@ function updateLineChart() {
 
 function getCountryEducation() {
   var result = [];
-    // console.log(selected_country);
   coverage_education.forEach(function(d) {
-    // console.log(d);
     if ((d.Vaccine == selected_vaccine) && (d.Country_code == selected_country)) {
-      // console.log(parseDate(d.Year));
       result.push({'Year': d.Year, 'Coverage': d.Coverage, 'Enrollment': d.Enrollment})
     }
   });

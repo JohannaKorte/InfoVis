@@ -1,53 +1,35 @@
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
 .bar {
-
-  fill: orange;
+    fill: rgb(199, 233, 180);
+    /* rgb(12, 44, 132); */
 }
 
 .bar:hover {
-  fill: orangered ;
+    stroke: white;
+    stroke-width: 1;
 }
 
-.x.axis path {
-  display: none;
-
+.test {
+    fill: #ffd35f;
+    font-family: sans-serif
 }
 
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
+#g-bar{
+  height: 200px;
 }
 
-/* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
+#dropdown{
+  display: inline-block;
   position: absolute;
-  text-align: center;
+  right: 0;
+  margin-right: 50px;
 }
 
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
+#x-axis-bar path {
+  fill: white;
+  stroke: white;
+  shape-rendering: crispEdges;
+}
+
+#x-axis-bar path {
+  display: none;
 }
