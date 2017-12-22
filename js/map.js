@@ -80,12 +80,13 @@ function handleCountrySelection() {
       // make all units transparent
       units
           .style("stroke-width", 0.4)
+          .style('stroke', 'black')
           .style('opacity', 0.6)
       // except the unit clicked on
       d3.select(this)
           .style("stroke-width", 0.5)
-          .style('opacity', 1)
-          .attr('id');
+          .style('stroke', 'white')
+          .style('opacity', 1);
 
       // remove placeholder text
       d3.selectAll('p').style('display', 'none');
@@ -114,6 +115,7 @@ function handleCountrySelection() {
         // remove transparancies of all units
         units
           .style("stroke-width", 0.5)
+          .style('stroke', 'black')
           .style('opacity', 1);
 
         // set placeholder

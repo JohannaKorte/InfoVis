@@ -140,6 +140,7 @@ function updateDisplay() {
 }
 
 function handleVaccineSelection(selected, d) {
+
   highlightBars(selected);
   // set global selected vaccine
   selected_vaccine = d.Vaccine;
