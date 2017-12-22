@@ -88,7 +88,7 @@ function drawLineChart() {
       .attr('class', 'legend');
 
   legend.append('rect')
-    .attr('x', width - 20)
+    .attr('x', width + 5)
     .attr('y', function(d, i) {
       return i * 20;
     })
@@ -99,7 +99,7 @@ function drawLineChart() {
     });
 
   legend.append('text')
-    .attr('x', width - 8)
+    .attr('x', width + 20)
     .attr('y', function(d, i) {
       return (i * 20) + 9;
     })
@@ -117,8 +117,9 @@ function drawLineChart() {
     .call(d3.axisLeft(yLine))
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr('x', 30-(height/2))
+      .attr('y', 5 -(margin.left))
+      .attr("dy", "1em")
       .style("text-anchor", "end")
       .text("Percentage (%)");
 

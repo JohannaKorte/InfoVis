@@ -4,6 +4,7 @@ var map = d3.geomap.choropleth()
     .geofile('d3-geomap/topojson/world/countries.json')
     .colors(colorbrewer.YlGnBu[8])
     .width('800')
+    .height('400')
     .legend(true)
     .scale(140)
     .unitId('ISO_code')
@@ -21,7 +22,8 @@ d3.csv('data/vaccines.csv', function(error, data) {
     // set defaults
     selected_vaccine = 'BCG';  //since it has a nice variation over the years
     selected_country = null;
-
+    // update vaccine display (right corner)
+    updateDisplay();
     // get data for selected Vaccine and update selected year
     var data_vaccine = getMapData();
 
@@ -72,8 +74,8 @@ function handleCountrySelection() {
   // when clicked on a unit
   units
     .on("click", function(d){
-
       selected_country = d.id;
+      selected_country_name = d.properties.name;
 
       // make all units transparent
       units
@@ -85,6 +87,9 @@ function handleCountrySelection() {
           .style('opacity', 1)
           .attr('id');
 
+      // remove placeholder text
+      d3.selectAll('p').style('display', 'none');
+
       // update horizontal bar
       updateHBar(slider_year, selected_country);
 
@@ -93,6 +98,9 @@ function handleCountrySelection() {
 
       // show barchart
       updateBarChart();
+
+      // update text display
+      updateDisplay();
     });
 
   // select the sea area (rectangle) on the map
@@ -101,11 +109,18 @@ function handleCountrySelection() {
   sea
     .on('click', function(d) {
         selected_country = null;
+        selected_country_name = null;
+
         // remove transparancies of all units
         units
           .style("stroke-width", 0.5)
           .style('opacity', 1);
 
+        // set placeholder
+        d3.select('#bar-placeholder').html('[Select a Country]');
+        d3.selectAll('p').style('display', 'inline-block');
+
+        // update horizontal bar
         updateHBar(slider_year, null);
 
         // remove linechart
@@ -113,5 +128,9 @@ function handleCountrySelection() {
 
         //  remove barchart
         removeBarChart();
+
+        // update text display
+        updateDisplay();
+
       });
 }

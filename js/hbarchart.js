@@ -1,6 +1,6 @@
 
 var svg = d3.select("#hbar-svg");
-var margin = {top: 20, right: 20, bottom: 30, left: 80};
+var margin = {top: 30, right: 20, bottom: 30, left: 80};
 var width = +svg.attr("width") - margin.left - margin.right;
 var height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -116,7 +116,6 @@ function draw(data) {
 };
 
 function highlightBars(selected) {
-  // console.log(selected);
   // make all bars transparent
   g.selectAll("rect").style("stroke-width", 0)
                       .style('opacity', 0.6);
@@ -126,18 +125,30 @@ function highlightBars(selected) {
                      .style('opacity', 1);
 }
 
+function updateDisplay() {
+  var html = function() {
+    if(selected_vaccine && selected_country) {
+      return selected_vaccine + ' - <br>' +  selected_country_name;
+    }
+    else if (selected_vaccine) {
+      return selected_vaccine;
+    }
+  }
+  d3.select('#vaccine-display')
+    .html(html)
+    .attr('class', selected_vaccine)
+}
+
 function handleVaccineSelection(selected, d) {
   highlightBars(selected);
   // set global selected vaccine
   selected_vaccine = d.Vaccine;
-  // update display
-  d3.select('#vaccine-display')
-    .html(selected_vaccine)
-    .attr('class', selected_vaccine)
 
-  // set new map data
+  // update display
+  updateDisplay();
+
+  // update map data
   map.data = getMapData();
-  // update map
   map.update()
 
   // update line charset

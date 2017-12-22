@@ -9,14 +9,6 @@ text {
    font-family:sans-serif,Helvetica,Arial;
 }
 
-#vaccine-display {
-  width: 10%;
-  height: 100px;
-  position: absolute;
-  right: 0;
-  color: black;
-  font-size: 30px;
-}
 
 #dash {
   width: 100%;
@@ -39,6 +31,7 @@ text {
 .legend-bg {
   opacity: 0;
   color:  white;
+  margin-bottom: 5px;
 }
 
 #map {

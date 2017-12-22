@@ -36,18 +36,14 @@ var select_disease = d3.select('#dropdown')
                             .on('change', function(d) { handleDiseaseSelection(d)});
 
 function drawBarChart() {
-
   // set the dimensions and margins of the graph
   var margin = {top: 40, right: 20, bottom: 30, left: 90};
   var width = 800 - margin.left - margin.right;
   var height = 200 - margin.top - margin.bottom;
 
   // set the ranges
-  var x = d3.scaleBand()
-      .range([0, width])
-      .padding(0.1);
-  var y = d3.scaleLinear()
-      .range([height, 0]);
+  var x = d3.scaleBand().range([0, width]).padding(0.1);
+  var y = d3.scaleLinear().range([height, 0]);
 
   var svg = d3.select("#bar-div").append("svg")
       .attr('id', 'bar-svg')
@@ -59,6 +55,13 @@ function drawBarChart() {
           "translate(" + margin.left + "," + margin.top + ")");
 
   var data = getDiseaseIncidence();
+
+  // set placeholder if data is unknown
+  if (data.length === 0) {
+    d3.select('#bar-placeholder')
+          .style('display', 'inline-block')
+          .html('[Data is Unknown]');
+  }
 
   // Scale the range of the data in the domains
   x.domain(data.map(function(d) { return d.Year; }));
@@ -91,7 +94,7 @@ function drawBarChart() {
   svg.selectAll("text")
             .style("text-anchor", "middle")
             .attr("dx", ".8em")
-            .attr("dy", ".15em");
+            .attr("dy", "0.71em");
 
 
   svg.append("text")
@@ -122,7 +125,6 @@ function updateBarChart() {
 
   // update dropdown list of diseases
   var diseases = mapping[selected_vaccine];
-  // call select func to create dropdown and add labels
 
   //  set selction options
   select_disease.selectAll('option').remove().exit();
@@ -133,14 +135,12 @@ function updateBarChart() {
         .text(function (d) { return d; });
 
   selected_disease = d3.select('#disease-select').property('value');
-  console.log(selected_disease);
 
   drawBarChart();
 }
 
 
 function getDiseaseIncidence() {
-  console.log(selected_disease);
   var result = [];
   incidence_data.forEach(function(d){
     // if selected country and selected disease
@@ -153,7 +153,6 @@ function getDiseaseIncidence() {
 
 function handleDiseaseSelection() {
  selected_disease = d3.select('#disease-select').property('value');
- console.log(selected_disease);
  removeBarChart();
  drawBarChart();
 

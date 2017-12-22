@@ -1,12 +1,41 @@
+body {
+  background-image: url("../images/under-the-sea-background.jpg");
+}
+
 h1 {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+ p {
+   text-align: center;
+   line-height: 200px;
+   position: absolute;
+ }
 
 h4 {
+  /* color: white; */
   margin: 10px;
   float: left;
   display: inline-block;
   position: absolute;
+}
+
+#vaccine-display {
+  width: 10%;
+  height: 100px;
+  position: absolute;
+  right: 27px;
+  color: white;
+  font-size: 30px;
+}
+
+#line-placeholder {
+  width: 30%;
+  color: rgb(12, 44, 132);
+}
+
+#bar-placeholder {
+  width: 70%;
+  color: rgb(199, 233, 180);
 }

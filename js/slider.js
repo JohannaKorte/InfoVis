@@ -1,11 +1,9 @@
-// window.onload = addSlider();
 function addSlider() {
+  
   var svg = d3.select("#slider-svg");
   var margin = {right: 15, left: 15};
   var width = +svg.attr("width") - margin.left - margin.right;
   var height = +svg.attr("height");
-
-  // years = getYears();
 
   xSlider = d3.scaleLinear()
       .domain([0, years.length - 1])
@@ -44,7 +42,7 @@ function addSlider() {
       .attr("class", "handle")
       .attr("r", 8);
 
-  slider.transition() // Gratuitous intro!
+  slider.transition()                           // Gratuitous intro!
     .duration(750)
     .tween("updateMap", function() {
       var i = d3.interpolate(0, 25);            // 25 is a random number
@@ -70,12 +68,9 @@ function updateMap(h) {
 
     if (parseInt(t.innerHTML) == slider_year) {
       d3.select(t).style('font-weight', 'bold')
-                  // .style('fill', 'white')
                   .style('font-size', '150%');
-
     } else {
       d3.select(t).style('font-weight', 'normal')
-                  // .style('fill', 'black')
                   .style('font-size', '100%');
     }
   });
