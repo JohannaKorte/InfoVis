@@ -11,35 +11,33 @@ var map = d3.geomap.choropleth()
     .postUpdate(handleCountrySelection);
 
 
-d3.csv('data/vaccinaties.csv', function(error, data) {
+d3.csv('data/vaccines.csv', function(error, data) {
     // set data to global
     this.data = data;
 
-    // get unique vaccine names
-    var vaccines = getLabels();
-    // get years
-    var years = getYears();
+    vaccines = getLabels(); // get unique vaccine names
+    years = getYears();     // get years
 
-    // TODO: make this general
-    // get selections
-    selected_vaccine = 'BCG'; //since it has a nice variation
+    // set defaults
+    selected_vaccine = 'BCG';  //since it has a nice variation over the years
     selected_country = null;
 
     // get data for selected Vaccine and update selected year
-    var data_vaccine = getData(selected_vaccine);
+    var data_vaccine = getMapData();
 
     // add data to map and draw
     d3.select('#map')
         .datum(data_vaccine)
         .call(map.draw, map);
 
+    // add slider
     addSlider();
 });
 
-function getData(selected) {
+function getMapData() {
   var result = [];
   data.forEach(function(d) {
-    if(d.Vaccine == selected) {
+    if(d.Vaccine == selected_vaccine) {
         result.push(d);
     }
   });
@@ -65,13 +63,6 @@ function getYears() {
     }
   });
   return years;
-};
-
-function onchange(selected_vaccine) {
-  // set new map data
-  map.data = getData(selected_vaccine);
-  // update map
-  map.update()
 };
 
 

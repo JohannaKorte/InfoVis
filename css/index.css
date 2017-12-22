@@ -1,8 +1,12 @@
-.chart div {
-  font: 10px sans-serif;
-  background-color: steelblue;
-  text-align: right;
-  padding: 3px;
-  margin: 1px;
-  color: white;
+h1 {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin: 10px;
+  float: left;
+  display: inline-block;
+  position: absolute;
 }

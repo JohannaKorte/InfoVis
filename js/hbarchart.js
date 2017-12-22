@@ -135,8 +135,10 @@ function handleVaccineSelection(selected, d) {
     .html(selected_vaccine)
     .attr('class', selected_vaccine)
 
-  // Update map
-  onchange(selected_vaccine);
+  // set new map data
+  map.data = getMapData();
+  // update map
+  map.update()
 
   // update line charset
   if (selected_country){

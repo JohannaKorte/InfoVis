@@ -2,6 +2,10 @@
   font: 10px sans-serif;
 }
 
+.slider-tick {
+  color:white;
+}
+
 .track,
 .track-inset,
 .track-overlay {

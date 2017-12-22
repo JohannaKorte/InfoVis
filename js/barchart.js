@@ -90,7 +90,7 @@ function drawBarChart() {
 
   svg.selectAll("text")
             .style("text-anchor", "middle")
-            .attr("dx", "-.8em")
+            .attr("dx", ".8em")
             .attr("dy", ".15em");
 
 
@@ -110,7 +110,7 @@ function drawBarChart() {
   var ticks = svg.selectAll("#x-axis-bar .tick text");
   ticks.attr("class", function(d,i){
       if(i%5 != 0) d3.select(this).remove();
-  }).style('color', 'white');
+  }).style('fill', 'white');
 }
 
 function removeBarChart() {

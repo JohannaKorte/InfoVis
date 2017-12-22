@@ -1,6 +1,5 @@
 .bar {
     fill: rgb(199, 233, 180);
-    /* rgb(12, 44, 132); */
 }
 
 .bar:hover {
@@ -8,14 +7,14 @@
     stroke-width: 1;
 }
 
-.test {
+/* .test {
     fill: #ffd35f;
     font-family: sans-serif
-}
+} */
 
-#g-bar{
+/* #g-bar{
   height: 200px;
-}
+} */
 
 #dropdown{
   display: inline-block;

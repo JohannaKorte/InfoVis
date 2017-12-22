@@ -1,10 +1,11 @@
+// window.onload = addSlider();
 function addSlider() {
   var svg = d3.select("#slider-svg");
   var margin = {right: 15, left: 15};
   var width = +svg.attr("width") - margin.left - margin.right;
   var height = +svg.attr("height");
 
-  years = getYears();
+  // years = getYears();
 
   xSlider = d3.scaleLinear()
       .domain([0, years.length - 1])
@@ -69,11 +70,12 @@ function updateMap(h) {
 
     if (parseInt(t.innerHTML) == slider_year) {
       d3.select(t).style('font-weight', 'bold')
+                  // .style('fill', 'white')
                   .style('font-size', '150%');
 
     } else {
       d3.select(t).style('font-weight', 'normal')
-                  // .style('color', 'black')
+                  // .style('fill', 'black')
                   .style('font-size', '100%');
     }
   });

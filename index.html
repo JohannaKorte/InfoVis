@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vaccination Coverage</title>
   <meta charset="utf-8">
+  <title>Vaccination Coverage</title>
   <!-- import css -->
+  <link rel="stylesheet" type="text/css" href='css/index.css'>
   <link rel="stylesheet" type="text/css" href='css/map.css'>
   <link rel ='stylesheet' type='text/css' href='css/slider.css'>
   <link rel="stylesheet" type="text/css" href='css/hbarchart.css'>
@@ -14,11 +15,8 @@
   <!-- import js -->
   <script src="d3-geomap/vendor/d3.geomap.dependencies.min.js"></script>
   <script src="d3-geomap/js/d3.geomap.min.js"></script>
-
-  <!--Above files are based on d3.v3, but files below are
-      dependent on d3.v4, so let's import v4 it here-->
   <script src="//d3js.org/d3.v4.min.js"></script>
-  <script src="d3-drag/d3-drag.js"></script>
+
 </head>
 <body background="images/under-the-sea-background.jpg">
   <h1>Exploring the Trend of World's Vaccination Coverage</h1>
@@ -26,14 +24,15 @@
     <svg id='slider-svg' width="1255" height="45"></svg>
   </div>
   <div id='wrapper'>
+    <h4>Vaccine</h4>
     <svg id='hbar-svg' width="350" height="400" style='float:left;'></svg>
   </div>
   <div id='map'>
     <div id='vaccine-display'></div>
   </div>
   <div id='dash'>
-    <div id='line-div'></div>
-    <div id='bar-div'></div>
+    <div id='line-div'><h4>Education</h3></div>
+    <div id='bar-div'><h4>Disease</h3></div>
     <div id='dropdown'></div>
   </div>
 
