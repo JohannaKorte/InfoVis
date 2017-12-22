@@ -184,8 +184,6 @@ var getCoverageData = function(selected_year, selected_country) {
 }
 
 function updateHBar(selected_year, selected_country) {
-  console.log(selected_year, selected_country, selected_vaccine)
   var mean_coverage_data = getCoverageData(selected_year, selected_country)
   update(mean_coverage_data);
 }
-// });
