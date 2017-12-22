@@ -19,12 +19,13 @@
   text-align: center;
 }
 
-body {
-	background-size: 100%;
-}
-
 #selected-hbar {
   stroke-width: 2;
   stroke: black;
   opacity: 1;
+}
+
+#hbar-svg {
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
 }

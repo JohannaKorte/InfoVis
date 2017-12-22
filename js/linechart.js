@@ -10,7 +10,6 @@ var yLine = d3.scaleLinear().range([height, 0]);
 var color = d3.scaleOrdinal(['rgb(237, 248, 177)', 'rgb(34, 94, 168)']);
 
 var line = d3.line()
-  // .curve(d3.curveCardinal)
   .x(function(d) {return xLine(d.date);})
   .y(function(d) {return yLine(d.temperature);});
 

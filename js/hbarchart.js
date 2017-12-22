@@ -1,6 +1,6 @@
 
 var svg = d3.select("#hbar-svg");
-var margin = {top: 30, right: 20, bottom: 30, left: 80};
+var margin = {top: 20, right: 20, bottom: 20, left: 80};
 var width = +svg.attr("width") - margin.left - margin.right;
 var height = +svg.attr("height") - margin.top - margin.bottom;
 
@@ -118,7 +118,7 @@ function draw(data) {
 function highlightBars(selected) {
   // make all bars transparent
   g.selectAll("rect").style("stroke-width", 0)
-                      .style('opacity', 0.6);
+                      .style('opacity', 0.8);
   // except for the bar clicked on
   d3.select(selected).style("stroke-width", 2)
                      .style("stroke", 'black')

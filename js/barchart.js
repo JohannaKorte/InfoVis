@@ -11,7 +11,7 @@ var mapping = {'BCG': ['tuberculosis'],
                'IPV1': ['polio'],
                'HepB_BD': ['hepatitis'],
                'HepB3': ['hepatitis'],
-               'Hib3': ['influenza'],
+               'Hib3': ['meningitis, pneumonea'],
                'JapEnc': ['JapEnc'],
                'MCV1': ['measles'],
                'MCV2': ['measles'],
@@ -115,7 +115,7 @@ function drawBarChart() {
   var ticks = svg.selectAll("#x-axis-bar .tick text");
   ticks.attr("class", function(d,i){
       if(i%5 != 0) d3.select(this).remove();
-  }).style('fill', 'white');
+  });
 }
 
 function removeBarChart() {

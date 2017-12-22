@@ -81,7 +81,7 @@ function handleCountrySelection() {
       units
           .style("stroke-width", 0.4)
           .style('stroke', 'black')
-          .style('opacity', 0.6)
+          .style('opacity', 0.8)
       // except the unit clicked on
       d3.select(this)
           .style("stroke-width", 0.5)

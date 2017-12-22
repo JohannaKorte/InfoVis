@@ -1,5 +1,5 @@
 function addSlider() {
-  
+
   var svg = d3.select("#slider-svg");
   var margin = {right: 15, left: 15};
   var width = +svg.attr("width") - margin.left - margin.right;
@@ -40,7 +40,7 @@ function addSlider() {
 
   handle = slider.insert("circle", ".track-overlay")
       .attr("class", "handle")
-      .attr("r", 8);
+      .attr("r", 6);
 
   slider.transition()                           // Gratuitous intro!
     .duration(750)
