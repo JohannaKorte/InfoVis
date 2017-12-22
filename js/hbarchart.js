@@ -16,7 +16,7 @@ var g = svg.append("g")
 var colors = colorbrewer.GnBu[9];
 
 var mean_coverage_by_year;
-d3.csv("data/test-mean.csv", function(error, data) {
+d3.csv("data/mean-coverage.csv", function(error, data) {
   if (error) throw error;
   this.mean_coverage_by_year = data;
   // start with first year

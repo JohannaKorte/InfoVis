@@ -4,7 +4,7 @@ d3.csv("data/diseases-melt.csv", function (data) {
     this.incidence_data = data;
 });
 
-var mapping = {'BCG': ['e_inc_num'],
+var mapping = {'BCG': ['tuberculosis'],
                'DTP1': ['diphtheria', 'pertussis', 'ttetanus'],
                'DTP3': ['diphtheria', 'pertussis', 'ttetanus'],
                'DTP4': ['diphtheria', 'pertussis', 'ttetanus'],
@@ -38,7 +38,7 @@ var select_disease = d3.select('#dropdown')
 function drawBarChart() {
 
   // set the dimensions and margins of the graph
-  var margin = {top: 40, right: 20, bottom: 30, left: 70};
+  var margin = {top: 40, right: 20, bottom: 30, left: 90};
   var width = 800 - margin.left - margin.right;
   var height = 200 - margin.top - margin.bottom;
 
